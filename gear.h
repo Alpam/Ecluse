@@ -19,7 +19,7 @@ public:
     virtual int getState();
     virtual void switchState(int newState);
     virtual void setAlarm(bool a);
-    virtual void sendSignal();
+    virtual void sendSignal() = 0;
 
 private:
     int state;
