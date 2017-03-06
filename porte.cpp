@@ -16,4 +16,22 @@ void Porte::sendSignal(int signal, int num)
                       break;
         default     : std::cout << "Stop Porte" << num;
     }
+
 }
+
+void Porte::open() {
+    if (getAlarm() != ON) switchState(OUVERT);
+}
+
+void Porte::close() {
+    if (getAlarm() != ON) switchState(FERME);
+}
+
+void Porte::setAlarm(bool a){
+    if (getAlarm() != ON) setAlarm(ON);
+}
+
+void Porte::disableAlarm() {
+    if (getAlarm() != OFF) setAlarm(OFF);
+}
+

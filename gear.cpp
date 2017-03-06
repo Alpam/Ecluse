@@ -27,3 +27,6 @@ void Gear::setAlarm(bool a) {
     alarm = a;
 }
 
+void Gear::sendSignal(int signal, int num) {
+
+}
