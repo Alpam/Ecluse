@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     automatique.cpp \
-    expert.cpp
+    expert.cpp \
+    gear.cpp
 
 HEADERS  += mainwindow.h \
     automatique.h \
-    expert.h
+    expert.h \
+    gear.h
 
 FORMS    += mainwindow.ui \
     automatique.ui \
