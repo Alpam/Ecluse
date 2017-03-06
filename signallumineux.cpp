@@ -4,15 +4,6 @@ SignalLumineux::SignalLumineux()
 {
     color = 'R';
 }
-void SignalLumineux::sendSignal(char signal, int num)
-{
-    switch(signal) {
-        case 'R' : std::cout << "Signal Rouge" << num;;
-            break;
-        case 'V'  : std::cout << "Signal Vert" << num;;
-            break;
-    }
-}
 
 void SignalLumineux::setGreen()
 {

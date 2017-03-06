@@ -43,7 +43,11 @@ private:
     void setAlarm(bool a);
     void setPanne(bool a);
     void setUnLock(bool a);
-    void timer_timeout(int num, char act);
+    QTimer timer;
+
+public slots :
+        void timer_timeout();
+
 };
 
 #endif // ECLUSE_H

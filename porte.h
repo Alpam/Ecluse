@@ -7,9 +7,8 @@ class Porte : public Gear
 {
 public:
     Porte();
-    void sendSignal(int signal, int num);
-    void ask_open();
-    void ask_close();
+    bool ask_open();
+    bool ask_close();
 };
 
 #endif // PORTE_H
