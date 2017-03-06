@@ -7,9 +7,9 @@ SignalLumineux::SignalLumineux()
 void SignalLumineux::sendSignal(char signal, int num)
 {
     switch(signal) {
-        case 'R' : std::cout << "Signal Rouge";
+        case 'R' : std::cout << "Signal Rouge" << num;;
             break;
-        case 'V'  : std::cout << "Signal Vert";
+        case 'V'  : std::cout << "Signal Vert" << num;;
             break;
     }
 }
