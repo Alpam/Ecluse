@@ -26,4 +26,3 @@ int Gear::getState() {
 void Gear::setAlarm(bool a) {
     alarm = a;
 }
-
