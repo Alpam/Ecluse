@@ -12,6 +12,7 @@ public:
     void close();
     void putAlarm();
     void disableAlarm();
+    void sendSignal(int signal, int num);
 };
 
 #endif // VALVE_H

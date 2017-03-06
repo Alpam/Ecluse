@@ -19,3 +19,7 @@ void Valve::putAlarm() {
 void Valve::disableAlarm() {
     if (getAlarm() != OFF) setAlarm(OFF);
 }
+
+void Valve::sendSignal(int signal, int num){
+
+}

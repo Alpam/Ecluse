@@ -1,5 +1,7 @@
 #include "porte.h"
 #include "gear.h"
+#include <string>
+#include <iostream>
 
 Porte::Porte()
     : Gear::Gear()
@@ -7,12 +9,11 @@ Porte::Porte()
 
 void Porte::sendSignal(int signal, int num)
 {
-    str
     switch(signal){
-        case OUVERT : cout << "Ouvert Porte";
+        case OUVERT : std::cout << "Ouvert Porte" << num;
                       break;
-        case FERME  : cout << "Ferme Porte";
+        case FERME  : std::cout << "Ferme Porte" << num;
                       break;
-        default     : cout << "Stop Porte";
+        default     : std::cout << "Stop Porte" << num;
     }
 }

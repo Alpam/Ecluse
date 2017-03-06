@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     automatique.cpp \
     expert.cpp \
     gear.cpp \
-    porte.cpp
+    porte.cpp \
+    valve.cpp
 
 HEADERS  += mainwindow.h \
     automatique.h \
     expert.h \
     gear.h \
-    porte.h
+    porte.h \
+    valve.h
 
 FORMS    += mainwindow.ui \
     automatique.ui \
