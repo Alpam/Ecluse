@@ -8,10 +8,6 @@ class Valve : public Gear
 {
 public:
     Valve();
-    void open();
-    void close();
-    void putAlarm();
-    void disableAlarm();
     void sendSignal(int signal, int num);
 };
 

@@ -2,8 +2,9 @@
 
 Gear::Gear()
 {
-    state = 0;
-    alarm = false;
+    state = FERME;
+    alarm = OFF;
+    panne = false;
 }
 
 Gear::~Gear()
@@ -19,6 +20,10 @@ bool Gear::getAlarm() {
    return alarm;
 }
 
+bool Gear::getPanne() {
+   return panne;
+}
+
 int Gear::getState() {
    return state;
 }
@@ -27,6 +32,43 @@ void Gear::setAlarm(bool a) {
     alarm = a;
 }
 
-void Gear::sendSignal(int signal, int num) {
+void Gear::setPanne(bool a) {
+    panne = a;
+    if(a) setAlarm(ON);
+}
 
+bool Gear::open() {
+    if(getAlarm() != ON){
+        switchState(OUVRE);
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool Gear::close() {
+    if (getAlarm() != ON){
+        switchState(FERME);
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+void Gear::putAlarm(){
+    if (getAlarm() != ON) setAlarm(ON);
+}
+
+void Gear::disableAlarm() {
+    if ((getAlarm() != OFF) && (getPanne() != true)) setAlarm(OFF);
+}
+
+void Gear::declarePanne(){
+    setPanne(true);
+}
+
+void Gear::resolvedPanne(){
+    setPanne(false);
 }

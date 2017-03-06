@@ -2,6 +2,7 @@
 #define SIGNALLUMINEUX_H
 
 #include "gear.h"
+#include <iostream>
 
 class SignalLumineux
 {

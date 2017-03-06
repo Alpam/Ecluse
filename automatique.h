@@ -2,6 +2,8 @@
 #define AUTOMATIQUE_H
 
 #include <QWidget>
+#include "expert.h"
+#include "ecluse.h"
 
 namespace Ui {
 class Automatique;
@@ -12,8 +14,9 @@ class Automatique : public QWidget
     Q_OBJECT
 
 public:
-    explicit Automatique(QWidget *parent = 0);
+    Automatique(Ecluse *e);
     ~Automatique();
+    Ecluse *ecluse;
 
 private slots:
     void on_boutonModeExp_released();

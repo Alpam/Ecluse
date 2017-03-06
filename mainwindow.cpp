@@ -1,13 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "automatique.h"
-#include "expert.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
+#include <QInputDialog>
+
+MainWindow::MainWindow(Ecluse *e) :
+    QMainWindow(0),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ecluse = e;
 }
 
 MainWindow::~MainWindow()
@@ -17,14 +18,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_boutonModeExp_released()
 {
-    Expert *w = new Expert;
-    w->show();
-    this->close();
+    QString txt = QInputDialog::getText(this,"Password ?","Mot de passe ?",QLineEdit::Password);
+        if(txt == "password"){
+            Expert *w = new Expert(ecluse);
+            w->show();
+            this->close();
+        }
 }
 
 void MainWindow::on_boutonModeAuto_released()
 {
-    Automatique *w = new Automatique;
+    Automatique *w = new Automatique(ecluse);
     w->show();
     this->close();
 }

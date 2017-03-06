@@ -18,15 +18,21 @@ SOURCES += main.cpp\
     expert.cpp \
     gear.cpp \
     porte.cpp \
-    valve.cpp
+    valve.cpp \
+    signallumineux.cpp \
+    ecluse.cpp
 
 HEADERS  += mainwindow.h \
     automatique.h \
     expert.h \
     gear.h \
     porte.h \
-    valve.h
+    valve.h \
+    signallumineux.h \
+    ecluse.h
 
-FORMS    += mainwindow.ui \
+FORMS    += \
     automatique.ui \
-    expert.ui
+    expert.ui \
+    mainwindow.ui \
+    ecluse.ui

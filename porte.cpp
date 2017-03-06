@@ -1,6 +1,5 @@
 #include "porte.h"
 #include "gear.h"
-#include <string>
 #include <iostream>
 
 Porte::Porte()
@@ -10,28 +9,21 @@ Porte::Porte()
 void Porte::sendSignal(int signal, int num)
 {
     switch(signal){
-        case OUVERT : std::cout << "Ouvert Porte" << num;
+        case OUVRE : std::cout << "Ouvre Porte" << num;
                       break;
         case FERME  : std::cout << "Ferme Porte" << num;
                       break;
-        default     : std::cout << "Stop Porte" << num;
+        case STOP   : std::cout << "Stop Porte" << num;
+                      break;
     }
 
 }
 
-void Porte::open() {
-    if (getAlarm() != ON) switchState(OUVERT);
+void Porte::ask_open() {
+    if (getAlarm() != ON) switchState(EN_OUVERTURE);
 }
 
-void Porte::close() {
-    if (getAlarm() != ON) switchState(FERME);
-}
-
-void Porte::setAlarm(bool a){
-    if (getAlarm() != ON) setAlarm(ON);
-}
-
-void Porte::disableAlarm() {
-    if (getAlarm() != OFF) setAlarm(OFF);
+void Porte::ask_close() {
+    if (getAlarm() != ON) switchState(EN_FERMETURE);
 }
 

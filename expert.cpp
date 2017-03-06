@@ -1,12 +1,12 @@
 #include "expert.h"
-#include "automatique.h"
 #include "ui_expert.h"
 
-Expert::Expert(QWidget *parent) :
-    QWidget(parent),
+Expert::Expert(Ecluse *e) :
+    QWidget(0),
     ui(new Ui::Expert)
 {
     ui->setupUi(this);
+    ecluse = e;
 }
 
 Expert::~Expert()
@@ -17,7 +17,7 @@ Expert::~Expert()
 
 void Expert::on_boutonModeAuto_released()
 {
-    Automatique *w = new Automatique;
+    Automatique *w = new Automatique(ecluse);
     w->show();
     this->close();
 }

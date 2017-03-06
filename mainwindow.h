@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "automatique.h"
+#include "expert.h"
+#include "ecluse.h"
 
 namespace Ui {
 class MainWindow;
@@ -12,8 +15,9 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    MainWindow(Ecluse *e);
     ~MainWindow();
+    Ecluse *ecluse;
 
 private slots:
     void on_boutonModeAuto_released();
