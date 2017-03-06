@@ -2,6 +2,5 @@
 #include "gear.h"
 
 Porte::Porte()
-{
-
-}
+    : Gear::Gear()
+{}
