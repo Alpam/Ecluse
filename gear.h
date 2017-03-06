@@ -1,6 +1,11 @@
 #ifndef GEAR_H
 #define GEAR_H
 
+#define FERME 0
+#define OUVERT 1
+#define PANNE 2
+#define EN_OUVERTURE 3
+#define EN_FERMETURE 4
 
 class Gear // classe abstraite
 {

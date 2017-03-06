@@ -16,8 +16,6 @@ public:
     ~Expert();
 
 private slots:
-
-
     void on_boutonModeAuto_released();
 
 private:

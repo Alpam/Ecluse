@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     automatique.cpp \
     expert.cpp \
-    gear.cpp
+    gear.cpp \
+    porte.cpp
 
 HEADERS  += mainwindow.h \
     automatique.h \
     expert.h \
-    gear.h
+    gear.h \
+    porte.h
 
 FORMS    += mainwindow.ui \
     automatique.ui \
