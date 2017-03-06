@@ -15,14 +15,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_12_released()
+void MainWindow::on_boutonModeExp_released()
 {
     Expert *w = new Expert;
     w->show();
+    this->close();
 }
 
-void MainWindow::on_pushButton_14_released()
+void MainWindow::on_boutonModeAuto_released()
 {
     Automatique *w = new Automatique;
     w->show();
+    this->close();
 }

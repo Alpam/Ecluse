@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton_14">
+   <widget class="QPushButton" name="boutonModeAuto">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -27,7 +27,7 @@
      <string>Passage mode Automatique </string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_12">
+   <widget class="QPushButton" name="boutonModeExp">
     <property name="geometry">
      <rect>
       <x>170</x>

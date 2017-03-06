@@ -15,6 +15,9 @@ public:
     explicit Automatique(QWidget *parent = 0);
     ~Automatique();
 
+private slots:
+    void on_boutonModeExp_released();
+
 private:
     Ui::Automatique *ui;
 };

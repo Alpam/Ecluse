@@ -26,14 +26,14 @@
     <item row="1" column="0">
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
-       <widget class="QRadioButton" name="radioButton">
+       <widget class="QRadioButton" name="radBouAmAv">
         <property name="text">
          <string>Sens Amont -&gt; Aval</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QRadioButton" name="radioButton_2">
+       <widget class="QRadioButton" name="radBouAvAm">
         <property name="text">
          <string>Sens Aval -&gt; Amont</string>
         </property>
@@ -44,21 +44,21 @@
     <item row="1" column="2">
      <layout class="QGridLayout" name="gridLayout_6">
       <item row="1" column="0">
-       <widget class="QPushButton" name="pushButton_9">
+       <widget class="QPushButton" name="boutonProgression">
         <property name="text">
          <string>Changement de niveau</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QPushButton" name="pushButton_10">
+       <widget class="QPushButton" name="boutonFinPassage">
         <property name="text">
          <string>Finaliser passage</string>
         </property>
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QPushButton" name="pushButton_11">
+       <widget class="QPushButton" name="boutonStartPassage">
         <property name="text">
          <string>Démarrer passage</string>
         </property>
@@ -67,7 +67,7 @@
      </layout>
     </item>
     <item row="1" column="1">
-     <widget class="QPushButton" name="pushButton_8">
+     <widget class="QPushButton" name="startAlarme">
       <property name="text">
        <string>Alarme</string>
       </property>
@@ -76,16 +76,16 @@
     <item row="0" column="1">
      <layout class="QGridLayout" name="gridLayout_8">
       <item row="2" column="0">
-       <widget class="QProgressBar" name="progressBar_2">
+       <widget class="QProgressBar" name="niveauEcluse">
         <property name="value">
          <number>24</number>
         </property>
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QPushButton" name="pushButton_13">
+       <widget class="QPushButton" name="boutonModeExp">
         <property name="text">
-         <string>Passage mode Automatique </string>
+         <string>Passage mode Expert </string>
         </property>
        </widget>
       </item>
@@ -131,7 +131,6 @@
     </item>
    </layout>
   </widget>
-  <zorder>gridLayoutWidget_2</zorder>
  </widget>
  <resources/>
  <connections/>

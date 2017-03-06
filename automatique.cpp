@@ -1,4 +1,5 @@
 #include "automatique.h"
+#include "expert.h"
 #include "ui_automatique.h"
 
 Automatique::Automatique(QWidget *parent) :
@@ -11,4 +12,11 @@ Automatique::Automatique(QWidget *parent) :
 Automatique::~Automatique()
 {
     delete ui;
+}
+
+void Automatique::on_boutonModeExp_released()
+{
+    Expert *w = new Expert;
+    w->show();
+    this->close();
 }

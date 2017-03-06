@@ -15,6 +15,11 @@ public:
     explicit Expert(QWidget *parent = 0);
     ~Expert();
 
+private slots:
+
+
+    void on_boutonModeAuto_released();
+
 private:
     Ui::Expert *ui;
 };
