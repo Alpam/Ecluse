@@ -185,6 +185,11 @@ void Ecluse::ouvreValve(int num){
 void Ecluse::fermeValve(int num){
     if(listeValves[num]->close()){
         update();
+        if(theau!=NULL){
+            theau->terminate();
+            delete theau;
+            theau=NULL;
+        }
         nbrVavleOp--;
         if(nbrVavleOp==1){
             int tmp;
