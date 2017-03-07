@@ -115,7 +115,7 @@ void Ecluse::update()
 }
 
 void Ecluse::ouvrePorte(int num){
-    if(porteOuvrable()){
+    if(porteOuvrable(num)){
         if(!(listePortes[num]->ask_open())){
             //ça plante
             return;
@@ -226,9 +226,14 @@ void Ecluse::resolvePanneV(int num){
     listeValves[num]->resolvedPanne();
 }
 
-bool Ecluse::porteOuvrable(){
+bool Ecluse::porteOuvrable(int num){
     if((nbrPorteOp+nbrVavleOp)==0){
-        return true;
+        if(num==AMONT){
+            return niveauEcluse==100?true:false;
+        }
+        else{
+            return niveauEcluse==0?true:false;
+        }
     }
     else{
         return false;
