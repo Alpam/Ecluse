@@ -1,4 +1,6 @@
 #include "ecluse.h"
+//#include "threadporte.h"
+#include "mythread.h"
 #include "ui_ecluse.h"
 #include <unistd.h>
 #include <iostream>
@@ -115,6 +117,14 @@ void Ecluse::ouvrePorte(int num){
             return;
         }
         update();
+        MyThread *thread = new MyThread(num);
+        thread->start();
+        connect(thread, SIGNAL(valueChanged(int)), this,SLOT(changerValeur(int)));
+
+        /*ThreadPorte *tp = new ThreadPorte(num, NULL);
+        QObject::connect(tp, SIGNAL(complete(int)), this, SLOT(setOpen(int)));
+        tp->start();*/
+
         /*if(!(listePortes[num]->ask_open())){
         {
             QObject::connect(&timer, SIGNAL(timeout()), this, SLOT(timer_timeout()));
@@ -124,6 +134,15 @@ void Ecluse::ouvrePorte(int num){
     }
 }
 
+/*
+void Ecluse::setOpen(int n) {
+    listePortes[n]->open();
+}
+
 void Ecluse::timer_timeout(){
     ui->etat->setText("Bouh");
+}*/
+void Ecluse::changerValeur(int i){
+    if(i==AMONT){ui->etat->setText("AMONT");}
+    else {ui->etat->setText("AT");}
 }

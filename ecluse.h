@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QWidget>
-
+#include "mythread.h"
 #include "porte.h"
 #include "valve.h"
 #include "signallumineux.h"
@@ -46,7 +46,9 @@ private:
     QTimer timer;
 
 public slots :
-        void timer_timeout();
+        void changerValeur(int i);
+        //void timer_timeout();
+        //void setOpen(int n);
 
 };
 

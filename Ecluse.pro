@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     porte.cpp \
     valve.cpp \
     signallumineux.cpp \
-    ecluse.cpp
+    ecluse.cpp \
+    threadporte.cpp \
+    mythread.cpp
 
 HEADERS  += mainwindow.h \
     automatique.h \
@@ -29,7 +31,9 @@ HEADERS  += mainwindow.h \
     porte.h \
     valve.h \
     signallumineux.h \
-    ecluse.h
+    ecluse.h \
+    threadporte.h \
+    mythread.h
 
 FORMS    += \
     automatique.ui \
