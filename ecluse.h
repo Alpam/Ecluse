@@ -20,6 +20,7 @@ class Ecluse : public QWidget
 
 public:
     explicit Ecluse(QWidget *parent = 0);
+    void update();
     void ouvrePorte(int num);
     void fermePorte(int num);
     void ouvreValve(int num);
@@ -27,12 +28,12 @@ public:
     void putAlarm();
     void disableAlarm();
     void declarePanne();
-    void resolvePanne();
+    void resolvePanneP(int num);
+    void resolvePanneV(int num);
     bool porteOuvrable();
     bool valveOuvrable();
     bool isOpen(int num);
     bool getAlarm();
-    void update();
     void switchFeu(int num);
     int niveauEcluse; //en pourcentage entre la hauteur de l'amont 100% et l'aval 0%
     ~Ecluse();
@@ -43,7 +44,6 @@ private:
     int nbrVavleOp;
     int nbrPorteOp;
     bool alarmeGenerale;
-    bool panneGenerale;
     //par convention l'indice 0 représente l'AMONT, l'indice 1 représente l'AVAL
     Porte *listePortes[2];
     Valve *listeValves[2];

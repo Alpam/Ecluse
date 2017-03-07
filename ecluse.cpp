@@ -20,7 +20,6 @@ Ecluse::Ecluse(QWidget *parent) :
     nbrPorteOp = 0;
     niveauEcluse = 0;
     alarmeGenerale = OFF;
-    panneGenerale = false;
     theau=NULL;
 }
 
@@ -201,6 +200,32 @@ void Ecluse::fermeValve(int num){
     }
 }
 
+void Ecluse::putAlarm() {
+    listePortes[AVAL]->putAlarm();
+    listePortes[AMONT]->putAlarm();
+    listeValves[AVAL]->putAlarm();
+    listeValves[AMONT]->putAlarm();
+    setAlarm(true);
+    update();
+}
+
+void Ecluse::disableAlarm(){
+    listePortes[AVAL]->disableAlarm();
+    listePortes[AMONT]->disableAlarm();
+    listeValves[AVAL]->disableAlarm();
+    listeValves[AMONT]->disableAlarm();
+    setAlarm(false);
+    update();
+}
+
+void Ecluse::resolvePanneP(int num){
+    listePortes[num]->resolvedPanne();
+}
+
+void Ecluse::resolvePanneV(int num){
+    listeValves[num]->resolvedPanne();
+}
+
 void Ecluse::timerAmont(){
     listePortes[AMONT]->declarePanne();
     listePortes[AMONT]->arret();
@@ -273,14 +298,6 @@ bool Ecluse::valveOuvrable(){
     }
 }
 
-void Ecluse::putAlarm() {
-    listePortes[AVAL]->putAlarm();
-    listePortes[AMONT]->putAlarm();
-    listeValves[AVAL]->putAlarm();
-    listeValves[AMONT]->putAlarm();
-    setAlarm(true);
-    update();
-}
 
 void Ecluse::setAlarm(bool a) {
     alarmeGenerale = a;
