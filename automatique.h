@@ -24,6 +24,8 @@ private slots:
     void rien();
     void slotUpDate(int nE);
 
+    void on_startAlarme_released();
+
 private:
     Ui::Automatique *ui;
     ThreadBarrePro *tBP;

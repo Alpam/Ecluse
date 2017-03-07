@@ -39,3 +39,9 @@ void Automatique::rien(){
 void Automatique::slotUpDate(int nE){
     ui->barreNiveau->setValue(nE);
 }
+
+void Automatique::on_startAlarme_released()
+{
+    ecluse->putAlarm();
+
+}

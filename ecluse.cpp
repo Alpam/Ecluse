@@ -33,7 +33,7 @@ void Ecluse::update()
 {
     QString etatPorteAval, etatPorteAmont, etatValveAval, etatValveAmont,
             alarmePorteAval, alarmePorteAmont, alarmeValveAval, alarmeValveAmont,
-            pannePorteAval, pannePorteAmont, panneValveAval, panneValveAmont;
+            pannePorteAval, pannePorteAmont, alarmeG, panneValveAval, panneValveAmont;
     switch (listePortes[AMONT]->getState()) {
         case OUVRE : etatPorteAmont = "Ouverte";
             break;
@@ -102,9 +102,11 @@ void Ecluse::update()
         alarmeValveAmont = "En Alarme";
     else
         alarmeValveAmont = "Pas en Alarme";
+    if (alarmeGenerale)
+        alarmeG = "\tECLUSE EN ALARME\n";
 
     QString nE = QString::number(niveauEcluse);
-    ui->etat->setText("PORTE AMONT\n\tEtat : " + etatPorteAmont + "\n\t" + alarmePorteAmont + "\n\t" + pannePorteAmont
+    ui->etat->setText(alarmeG + "PORTE AMONT\n\tEtat : " + etatPorteAmont + "\n\t" + alarmePorteAmont + "\n\t" + pannePorteAmont
                       + "\n\nPORTE AVAL\n\tEtat : " + etatPorteAval + "\n\t" + alarmePorteAval + "\n\t" + pannePorteAval
                       + "\n\nVALVE AMONT\n\tEtat : " + etatValveAmont + "\n\t" + alarmeValveAmont + "\n\t" + panneValveAmont
                       + "\n\nVALVE AVAL\n\tEtat : " + etatValveAval + "\n\t" + alarmeValveAval + "\n\t" + panneValveAval
@@ -269,4 +271,17 @@ bool Ecluse::valveOuvrable(){
     else{
         return false;
     }
+}
+
+void Ecluse::putAlarm() {
+    listePortes[AVAL]->putAlarm();
+    listePortes[AMONT]->putAlarm();
+    listeValves[AVAL]->putAlarm();
+    listeValves[AMONT]->putAlarm();
+    setAlarm(true);
+    update();
+}
+
+void Ecluse::setAlarm(bool a) {
+    alarmeGenerale = a;
 }
