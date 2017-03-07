@@ -9,6 +9,7 @@ Automatique::Automatique(Ecluse *e) :
 {
     ui->setupUi(this);
     ecluse = e;
+    ui->barreNiveau->setValue(0);
     tBP = new ThreadBarrePro(&e->niveauEcluse);
     tBP->start();
     connect(tBP, SIGNAL(fin()), this, SLOT(rien()));

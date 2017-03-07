@@ -29,7 +29,7 @@ public:
     void disableAlarm();
     void resolvePanneP(int num);
     void resolvePanneV(int num);
-    bool porteOuvrable();
+    bool porteOuvrable(int num);
     bool valveOuvrable();
     bool getAlarm();
     void switchFeu(int num);
