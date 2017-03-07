@@ -2,9 +2,7 @@
 #define THREADBARREPRO_H
 
 #include <QApplication>
-#include <QtGUI>
 #include <QThread>
-#include <QtWidgets>
 
 class ThreadBarrePro : public QThread
 {

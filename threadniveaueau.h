@@ -2,7 +2,6 @@
 #define THREADNIVEAUEAU_H
 
 #include <QApplication>
-#include <QtGUI>
 #include <QThread>
 
 class ThreadNiveauEau : public QThread

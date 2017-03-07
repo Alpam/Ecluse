@@ -2,7 +2,6 @@
 #define MYTHREAD_H
 
 #include <QApplication>
-#include <QtGUI>
 #include <QThread>
 
 class MyThread : public QThread
