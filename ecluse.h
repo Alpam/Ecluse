@@ -30,7 +30,10 @@ public:
     void resolvePanne();
     bool porteOuvrable();
     bool valveOuvrable();
+    bool isOpen(int num);
+    bool getAlarm();
     void update();
+    void switchFeu(int num);
     int niveauEcluse; //en pourcentage entre la hauteur de l'amont 100% et l'aval 0%
     ~Ecluse();
 

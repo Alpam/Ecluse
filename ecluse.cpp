@@ -285,3 +285,17 @@ void Ecluse::putAlarm() {
 void Ecluse::setAlarm(bool a) {
     alarmeGenerale = a;
 }
+
+bool Ecluse::getAlarm(){
+    return alarmeGenerale;
+}
+
+void Ecluse::switchFeu(int num){
+    if(listeFeux[num]->getColor()=='R'){
+        listeFeux[num]->setGreen();
+    }
+    else{
+        listeFeux[num]->setRed();
+    }
+    update();
+}
