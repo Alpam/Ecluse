@@ -27,12 +27,10 @@ public:
     void fermeValve(int num);
     void putAlarm();
     void disableAlarm();
-    void declarePanne();
     void resolvePanneP(int num);
     void resolvePanneV(int num);
     bool porteOuvrable();
     bool valveOuvrable();
-    bool isOpen(int num);
     bool getAlarm();
     void switchFeu(int num);
     int niveauEcluse; //en pourcentage entre la hauteur de l'amont 100% et l'aval 0%
@@ -49,7 +47,6 @@ private:
     Valve *listeValves[2];
     SignalLumineux *listeFeux[2];
     void setAlarm(bool a);
-    void setPanne(bool a);
     QTimer *timer;
     MyThread *thread;
     ThreadNiveauEau *theau;
@@ -60,7 +57,6 @@ public slots :
         void timerAmont();
         void timerAval();
         void slotUpdate();
-        //void timer_timeout();
 };
 
 #endif // ECLUSE_H
