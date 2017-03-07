@@ -1,7 +1,9 @@
 #include "automatique.h"
 #include "ui_automatique.h"
+#include <unistd.h>
 
 #include <QInputDialog>
+
 
 Automatique::Automatique(Ecluse *e) :
     QWidget(0),
@@ -44,5 +46,25 @@ void Automatique::slotUpDate(int nE){
 void Automatique::on_startAlarme_released()
 {
     ecluse->putAlarm();
+}
 
+void Automatique::on_boutonStartPassage_released()
+{
+    if (ui->radBouAmAv->isChecked()){
+        if (ecluse->niveauEcluse != 100) {
+            ecluse->ouvreValve(AMONT);
+            while(ecluse->niveauEcluse != 100) {
+            }
+            ecluse->ouvrePorte(AMONT);
+        }
+    }
+    if (ui->radBouAvAm->isChecked()){
+        if (ecluse->niveauEcluse != 0) {
+            ecluse->ouvreValve(AVAL);
+            while(ecluse->niveauEcluse != 0) {
+                sleep(1);
+            }
+            ecluse->ouvrePorte(AVAL);
+        }
+    }
 }

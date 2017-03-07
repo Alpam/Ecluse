@@ -26,6 +26,8 @@ private slots:
 
     void on_startAlarme_released();
 
+    void on_boutonStartPassage_released();
+
 private:
     Ui::Automatique *ui;
     ThreadBarrePro *tBP;
