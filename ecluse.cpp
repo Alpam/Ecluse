@@ -226,24 +226,36 @@ void Ecluse::resolvePanneV(int num){
     listeValves[num]->resolvedPanne();
 }
 
-void Ecluse::timerAmont(){
-    listePortes[AMONT]->declarePanne();
-    listePortes[AMONT]->arret();
-    update();
-    thread->terminate();
-    delete thread;
-    timer->stop();
-    delete timer;
+bool Ecluse::porteOuvrable(){
+    if((nbrPorteOp+nbrVavleOp)==0){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
-void Ecluse::timerAval(){
-    listePortes[AVAL]->declarePanne();
-    listePortes[AVAL]->arret();
+bool Ecluse::valveOuvrable(){
+    if((nbrPorteOp)==0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool Ecluse::getAlarm(){
+    return alarmeGenerale;
+}
+
+void Ecluse::switchFeu(int num){
+    if(listeFeux[num]->getColor()=='R'){
+        listeFeux[num]->setGreen();
+    }
+    else{
+        listeFeux[num]->setRed();
+    }
     update();
-    thread->terminate();
-    delete thread;
-    timer->stop();
-    delete timer;
 }
 
 void Ecluse::valideAction(int num, int act){
@@ -276,43 +288,31 @@ void Ecluse::finChangementNiveau(){
     theau=NULL;
 }
 
+void Ecluse::timerAmont(){
+    listePortes[AMONT]->declarePanne();
+    listePortes[AMONT]->arret();
+    update();
+    thread->terminate();
+    delete thread;
+    timer->stop();
+    delete timer;
+}
+
+void Ecluse::timerAval(){
+    listePortes[AVAL]->declarePanne();
+    listePortes[AVAL]->arret();
+    update();
+    thread->terminate();
+    delete thread;
+    timer->stop();
+    delete timer;
+}
+
 void Ecluse::slotUpdate(){
     update();
 }
-
-bool Ecluse::porteOuvrable(){
-    if((nbrPorteOp+nbrVavleOp)==0){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-
-bool Ecluse::valveOuvrable(){
-    if((nbrPorteOp)==0){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-
 
 void Ecluse::setAlarm(bool a) {
     alarmeGenerale = a;
 }
 
-bool Ecluse::getAlarm(){
-    return alarmeGenerale;
-}
-
-void Ecluse::switchFeu(int num){
-    if(listeFeux[num]->getColor()=='R'){
-        listeFeux[num]->setGreen();
-    }
-    else{
-        listeFeux[num]->setRed();
-    }
-    update();
-}
