@@ -27,6 +27,7 @@ public:
     void fermeValve(int num);
     void putAlarm();
     void disableAlarm();
+    void miseAlArret();
     void resolvePanneP(int num);
     void resolvePanneV(int num);
     bool porteOuvrable(int num);

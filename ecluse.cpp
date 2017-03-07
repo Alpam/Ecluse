@@ -210,6 +210,9 @@ void Ecluse::putAlarm() {
     listePortes[AMONT]->putAlarm();
     listeValves[AVAL]->putAlarm();
     listeValves[AMONT]->putAlarm();
+    fermeValve(AVAL);
+    fermeValve(AMONT);
+    miseAlArret();
     setAlarm(true);
     update();
 }
@@ -221,6 +224,18 @@ void Ecluse::disableAlarm(){
     listeValves[AMONT]->disableAlarm();
     setAlarm(false);
     update();
+}
+
+void Ecluse::miseAlArret(){
+    for(int i=0;i<2;i++){
+        if((listePortes[i]->getState()==EN_OUVERTURE)||(listePortes[i]->getState()==EN_FERMETURE)){
+            timer->stop();
+            thread->terminate();
+            delete timer;
+            delete thread;
+            listePortes[i]->arret();
+        }
+    }
 }
 
 void Ecluse::resolvePanneP(int num){

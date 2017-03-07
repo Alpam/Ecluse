@@ -25,6 +25,7 @@ public:
     virtual void disableAlarm();
     virtual void declarePanne();
     virtual void resolvedPanne();
+    virtual void arret();
 
 protected:
     int state;

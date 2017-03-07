@@ -74,3 +74,7 @@ void Gear::resolvedPanne(){
     setPanne(false);
     switchState(FERME);
 }
+
+void Gear::arret(){
+    switchState(EN_ARRET);
+}
