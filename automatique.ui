@@ -106,7 +106,7 @@
     <item row="0" column="2">
      <layout class="QGridLayout" name="gridLayout_8">
       <item row="2" column="0">
-       <widget class="QProgressBar" name="niveauEcluse">
+       <widget class="QProgressBar" name="barreNiveau">
         <property name="value">
          <number>24</number>
         </property>

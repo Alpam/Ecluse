@@ -38,7 +38,7 @@ void Gear::setPanne(bool a) {
 }
 
 bool Gear::open() {
-    if(getAlarm() != ON){
+    if((getAlarm() != ON) && (getState() != OUVRE)){
         switchState(OUVRE);
         return true;
     }
@@ -48,7 +48,7 @@ bool Gear::open() {
 }
 
 bool Gear::close() {
-    if (getAlarm() != ON){
+    if ((getAlarm() != ON) && (getState() != FERME)){
         switchState(FERME);
         return true;
     }
@@ -66,9 +66,11 @@ void Gear::disableAlarm() {
 }
 
 void Gear::declarePanne(){
+    putAlarm();
     setPanne(true);
 }
 
 void Gear::resolvedPanne(){
     setPanne(false);
+    switchState(FERME);
 }

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "expert.h"
 #include "ecluse.h"
+#include "threadbarrepro.h"
 
 namespace Ui {
 class Automatique;
@@ -20,9 +21,13 @@ public:
 
 private slots:
     void on_boutonModeExp_released();
+    void rien();
+    void slotUpDate(int nE);
 
 private:
     Ui::Automatique *ui;
+    ThreadBarrePro *tBP;
+
 };
 
 #endif // AUTOMATIQUE_H

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QWidget>
+#include "threadniveaueau.h"
 #include "mythread.h"
 #include "porte.h"
 #include "valve.h"
@@ -27,13 +28,17 @@ public:
     void disableAlarm();
     void declarePanne();
     void resolvePanne();
+    bool porteOuvrable();
+    bool valveOuvrable();
     void update();
+    int niveauEcluse; //en pourcentage entre la hauteur de l'amont 100% et l'aval 0%
     ~Ecluse();
 
 private:
     Ui::Ecluse *ui;
     bool unlocked;
-    int niveauEcluse; //en pourcentage entre la hauteur de l'amont 100% et l'aval 0%
+    int nbrVavleOp;
+    int nbrPorteOp;
     bool alarmeGenerale;
     bool panneGenerale;
     //par convention l'indice 0 représente l'AMONT, l'indice 1 représente l'AVAL
@@ -42,14 +47,17 @@ private:
     SignalLumineux *listeFeux[2];
     void setAlarm(bool a);
     void setPanne(bool a);
-    void setUnLock(bool a);
-    QTimer timer;
+    QTimer *timer;
+    MyThread *thread;
+    ThreadNiveauEau *theau;
 
 public slots :
-        void changerValeur(int i);
+        void valideAction(int num,int act);
+        void finChangementNiveau();
+        void timerAmont();
+        void timerAval();
+        void slotUpdate();
         //void timer_timeout();
-        //void setOpen(int n);
-
 };
 
 #endif // ECLUSE_H

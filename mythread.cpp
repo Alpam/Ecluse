@@ -1,11 +1,14 @@
 #include "mythread.h"
+#include <unistd.h>
 
-MyThread::MyThread(int n)
+MyThread::MyThread(int n, int a)
 {
     num=n;
+    act=a;
 }
 
 void MyThread::run()
 {
-    emit valueChanged(num);
+    sleep(10);
+    emit signalTerminal(num,act);
 }

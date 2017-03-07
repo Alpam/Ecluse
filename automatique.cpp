@@ -9,10 +9,16 @@ Automatique::Automatique(Ecluse *e) :
 {
     ui->setupUi(this);
     ecluse = e;
+    tBP = new ThreadBarrePro(&e->niveauEcluse);
+    tBP->start();
+    connect(tBP, SIGNAL(fin()), this, SLOT(rien()));
+    connect(tBP, SIGNAL(timeToUpdate(int)), this, SLOT(slotUpDate(int)));
 }
 
 Automatique::~Automatique()
 {
+    tBP->terminate();
+    delete tBP;
     delete ui;
 }
 
@@ -24,4 +30,12 @@ void Automatique::on_boutonModeExp_released()
             w->show();
             this->close();
         }
+}
+
+void Automatique::rien(){
+    //ne fais rien
+}
+
+void Automatique::slotUpDate(int nE){
+    ui->barreNiveau->setValue(nE);
 }

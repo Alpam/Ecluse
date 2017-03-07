@@ -9,6 +9,7 @@ public:
     Porte();
     bool ask_open();
     bool ask_close();
+    void arret();
 };
 
 #endif // PORTE_H

@@ -10,16 +10,17 @@ class MyThread : public QThread
     Q_OBJECT
 
     public:
-            MyThread(int n);
+        MyThread(int n, int a);
 
     public slots :
-            void run();
+        void run();
 
     signals :
-            void valueChanged(int num);
+        void signalTerminal(int num, int act);
 
     public :
-            int num;
+        int num;
+        int act;
 };
 
 #endif

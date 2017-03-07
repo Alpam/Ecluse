@@ -1,5 +1,5 @@
 #include "ecluse.h"
-//#include "threadporte.h"
+#include "threadniveaueau.h"
 #include "mythread.h"
 #include "ui_ecluse.h"
 #include <unistd.h>
@@ -16,11 +16,12 @@ Ecluse::Ecluse(QWidget *parent) :
     listeValves[1]=new Valve;
     listeFeux[0]=new SignalLumineux;
     listeFeux[1]=new SignalLumineux;
-    unlocked=true;
+    nbrVavleOp = 0;
+    nbrPorteOp = 0;
     niveauEcluse = 0;
     alarmeGenerale = OFF;
     panneGenerale = false;
-
+    theau=NULL;
 }
 
 Ecluse::~Ecluse()
@@ -102,47 +103,170 @@ void Ecluse::update()
     else
         alarmeValveAmont = "Pas en Alarme";
 
+    QString nE = QString::number(niveauEcluse);
     ui->etat->setText("PORTE AMONT\n\tEtat : " + etatPorteAmont + "\n\t" + alarmePorteAmont + "\n\t" + pannePorteAmont
                       + "\n\nPORTE AVAL\n\tEtat : " + etatPorteAval + "\n\t" + alarmePorteAval + "\n\t" + pannePorteAval
                       + "\n\nVALVE AMONT\n\tEtat : " + etatValveAmont + "\n\t" + alarmeValveAmont + "\n\t" + panneValveAmont
                       + "\n\nVALVE AVAL\n\tEtat : " + etatValveAval + "\n\t" + alarmeValveAval + "\n\t" + panneValveAval
                       + "\n\nSIGNAL LUMINEUX AVAL\t" + listeFeux[AVAL]->getColor()
-                      + "\n\nSIGNAL LUMINEUX AMONT\t" + listeFeux[AMONT]->getColor());
+                      + "\n\nSIGNAL LUMINEUX AMONT\t" + listeFeux[AMONT]->getColor()
+                      + "\n\nNIVEAU EAU\t" + nE);
 }
 
 void Ecluse::ouvrePorte(int num){
-    if(unlocked && (alarmeGenerale != ON)){
+    if(porteOuvrable()){
         if(!(listePortes[num]->ask_open())){
             //ça plante
             return;
         }
+        nbrPorteOp++;
         update();
-        MyThread *thread = new MyThread(num);
+        thread = new MyThread(num,EN_OUVERTURE);
         thread->start();
-        connect(thread, SIGNAL(valueChanged(int)), this,SLOT(changerValeur(int)));
-
-        /*ThreadPorte *tp = new ThreadPorte(num, NULL);
-        QObject::connect(tp, SIGNAL(complete(int)), this, SLOT(setOpen(int)));
-        tp->start();*/
-
-        /*if(!(listePortes[num]->ask_open())){
-        {
-            QObject::connect(&timer, SIGNAL(timeout()), this, SLOT(timer_timeout()));
-            timer.start(10000);
-
-        }*/
+        timer = new QTimer();
+        if(num==AMONT){
+            connect(timer, SIGNAL(timeout()), this, SLOT(timerAmont()));
+        }
+        else{
+            connect(timer, SIGNAL(timeout()), this, SLOT(timerAval()));
+        }
+        connect(thread, SIGNAL(signalTerminal(int,int)), this,SLOT(valideAction(int,int)));
+        timer->start(12000);
     }
 }
 
-/*
-void Ecluse::setOpen(int n) {
-    listePortes[n]->open();
+void Ecluse::fermePorte(int num){
+    if(!(listePortes[num]->ask_close())){
+        //ça plante
+        return;
+    }
+    update();
+    thread = new MyThread(num,EN_FERMETURE);
+    thread->start();
+    timer = new QTimer();
+    if(num==AMONT){
+        connect(timer, SIGNAL(timeout()), this, SLOT(timerAmont()));
+    }
+    else{
+        connect(timer, SIGNAL(timeout()), this, SLOT(timerAval()));
+    }
+    connect(thread, SIGNAL(signalTerminal(int,int)), this,SLOT(valideAction(int,int)));
+    timer->start(12000);
 }
 
-void Ecluse::timer_timeout(){
-    ui->etat->setText("Bouh");
-}*/
-void Ecluse::changerValeur(int i){
-    if(i==AMONT){ui->etat->setText("AMONT");}
-    else {ui->etat->setText("AT");}
+void Ecluse::ouvreValve(int num){
+    if(valveOuvrable()){
+    if(listeValves[num]->open()){
+        nbrVavleOp++;
+        update();
+        if(nbrVavleOp==2){
+            if(theau!=NULL){
+                theau->terminate();
+                delete theau;
+                theau=NULL;
+            }
+            niveauEcluse = 50;
+            update();
+        }
+        else{
+            theau = new ThreadNiveauEau(&niveauEcluse, num);
+            theau->start();
+            connect(theau, SIGNAL(finish()), this,SLOT(finChangementNiveau()));
+            connect(theau, SIGNAL(timeToUpdate()), this, SLOT(slotUpdate()));
+        }
+    }
+    else{
+        //popupmarche pas
+    }
+    }
+}
+
+void Ecluse::fermeValve(int num){
+    if(listeValves[num]->close()){
+        update();
+        nbrVavleOp--;
+        if(nbrVavleOp==1){
+            int tmp;
+            num==AMONT?tmp=AVAL:tmp=AMONT;
+            theau = new ThreadNiveauEau(&niveauEcluse, tmp);
+            theau->start();
+            connect(theau, SIGNAL(finish()), this,SLOT(finChangementNiveau()));
+            connect(theau, SIGNAL(timeToUpdate()), this, SLOT(slotUpdate()));
+        }
+    }
+    else{
+        //popupmarche pas
+    }
+}
+
+void Ecluse::timerAmont(){
+    listePortes[AMONT]->declarePanne();
+    listePortes[AMONT]->arret();
+    update();
+    thread->terminate();
+    delete thread;
+    timer->stop();
+    delete timer;
+}
+
+void Ecluse::timerAval(){
+    listePortes[AVAL]->declarePanne();
+    listePortes[AVAL]->arret();
+    update();
+    thread->terminate();
+    delete thread;
+    timer->stop();
+    delete timer;
+}
+
+void Ecluse::valideAction(int num, int act){
+    if(listePortes[num]->getPanne()){
+        listePortes[num]->putAlarm();
+        listePortes[num]->arret();
+    }
+    else{
+        if(act==EN_OUVERTURE){
+            if(!(listePortes[num]->open())){
+                //pop-up pas possible
+            }
+        }
+        else if(act==EN_FERMETURE){
+            if(!(listePortes[num]->close())){
+                //pop-up pas possible
+            }
+            nbrPorteOp--;
+        }
+    }
+    update();
+    timer->stop();
+    delete timer;
+    delete thread;
+}
+
+void Ecluse::finChangementNiveau(){
+    update();
+    delete theau;
+    theau=NULL;
+}
+
+void Ecluse::slotUpdate(){
+    update();
+}
+
+bool Ecluse::porteOuvrable(){
+    if((nbrPorteOp+nbrVavleOp)==0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool Ecluse::valveOuvrable(){
+    if((nbrPorteOp)==0){
+        return true;
+    }
+    else{
+        return false;
+    }
 }

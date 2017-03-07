@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     Ecluse *ecluse = new Ecluse;
     ecluse->update();
     ecluse->show();
-    ecluse->ouvrePorte(0);
+    ecluse->ouvreValve(0);
     MainWindow w(ecluse);
     w.show();
 
