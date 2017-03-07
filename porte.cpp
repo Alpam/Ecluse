@@ -7,7 +7,7 @@ Porte::Porte()
 {}
 
 bool Porte::ask_open() {
-    if ((getAlarm() != ON) && (getState() != OUVRE)) {
+    if ((getAlarm() != ON) && ((getState() == FERME)||(getState() == EN_ARRET))) {
         switchState(EN_OUVERTURE);
         return true;
     }
@@ -17,7 +17,7 @@ bool Porte::ask_open() {
 }
 
 bool Porte::ask_close() {
-    if ((getAlarm() != ON) && (getState() != FERME)){
+    if ((getAlarm() != ON) && ((getState() == OUVRE)||(getState() == EN_ARRET))){
         switchState(EN_FERMETURE);
         return true;
     }
