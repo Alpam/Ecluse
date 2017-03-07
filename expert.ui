@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>520</width>
+    <width>622</width>
     <height>507</height>
    </rect>
   </property>
@@ -18,79 +18,69 @@
     <rect>
      <x>20</x>
      <y>10</y>
-     <width>491</width>
+     <width>590</width>
      <height>451</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="6" column="0">
-     <widget class="QPushButton" name="vAmOnOff">
-      <property name="text">
-       <string>Ouvert/Fermé</string>
-      </property>
-     </widget>
+    <item row="3" column="6">
+     <layout class="QGridLayout" name="gridLayout_6">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="pAvOnOff">
+        <property name="text">
+         <string>Ouvrir</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pAvOff">
+        <property name="text">
+         <string>Fermer</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="pAmOnOff">
-      <property name="text">
-       <string>Ouvert/Fermé</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
+    <item row="6" column="1">
      <widget class="QLabel" name="label_3">
       <property name="text">
        <string>Valve Amont</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="2" rowspan="3">
+    <item row="5" column="4" rowspan="3">
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <widget class="QPushButton" name="boutonStartAlarme">
         <property name="text">
-         <string>Alarme</string>
+         <string>ALARME</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
        <widget class="QPushButton" name="boutonStopAlarme">
         <property name="text">
-         <string>Stop Alarme</string>
+         <string>STOP ALARME</string>
         </property>
        </widget>
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
+    <item row="1" column="1">
      <widget class="QLabel" name="label">
       <property name="text">
        <string>Porte Amont</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="4">
+    <item row="1" column="6">
      <widget class="QLabel" name="label_2">
       <property name="text">
        <string>Porte Aval</string>
       </property>
      </widget>
     </item>
-    <item row="6" column="4">
-     <widget class="QPushButton" name="vAvOnOff">
-      <property name="text">
-       <string>Ouvert/Fermé</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="4">
-     <widget class="QPushButton" name="pAvOnOff">
-      <property name="text">
-       <string>Ouvert/Fermé</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
+    <item row="0" column="4">
      <layout class="QGridLayout" name="gridLayout_8">
       <item row="2" column="0">
        <widget class="QProgressBar" name="barreNiveau">
@@ -146,63 +136,35 @@
       </item>
      </layout>
     </item>
-    <item row="5" column="4">
+    <item row="6" column="6">
      <widget class="QLabel" name="label_4">
       <property name="text">
        <string>Valve Aval</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="bStopAlarmePorteAm">
-      <property name="text">
-       <string>Stop Alarme</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="4">
+    <item row="12" column="6">
      <widget class="QPushButton" name="boutonRepareValveAv">
       <property name="text">
-       <string>Réparé</string>
+       <string>Reparation Faite</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="4">
-     <widget class="QPushButton" name="bStopAlarmePorteAv">
-      <property name="text">
-       <string>Stop Alarme</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="4">
+    <item row="5" column="6">
      <widget class="QPushButton" name="boutonReparePorteAv">
       <property name="text">
-       <string>Réparé</string>
+       <string>Reparation Faite</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
+    <item row="5" column="1">
      <widget class="QPushButton" name="boutonReparePorteAm">
       <property name="text">
-       <string>Réparé</string>
+       <string>Reparation Faite</string>
       </property>
      </widget>
     </item>
-    <item row="11" column="0">
-     <widget class="QPushButton" name="bStopAlarmeValveAm">
-      <property name="text">
-       <string>Stop Alarme</string>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="4">
-     <widget class="QPushButton" name="bStopAlarmeValveAv">
-      <property name="text">
-       <string>Stop Alarme</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="3">
+    <item row="6" column="5">
      <spacer name="horizontalSpacer_2">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -215,7 +177,7 @@
       </property>
      </spacer>
     </item>
-    <item row="5" column="1">
+    <item row="6" column="3">
      <spacer name="horizontalSpacer">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -228,14 +190,14 @@
       </property>
      </spacer>
     </item>
-    <item row="12" column="0">
+    <item row="12" column="1">
      <widget class="QPushButton" name="boutonRepareValveAm">
       <property name="text">
-       <string>Réparé</string>
+       <string>Reparation Faite</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="0" colspan="2">
+    <item row="0" column="1" colspan="3">
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
        <widget class="QLabel" name="label_5">
@@ -253,7 +215,7 @@
       </item>
      </layout>
     </item>
-    <item row="0" column="3" colspan="2">
+    <item row="0" column="5" colspan="2">
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
        <widget class="QLabel" name="label_6">
@@ -266,6 +228,60 @@
        <widget class="QPushButton" name="boutonFeuAval">
         <property name="text">
          <string>FEU AVAL</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="7" column="6">
+     <layout class="QGridLayout" name="gridLayout_10">
+      <item row="0" column="1">
+       <widget class="QPushButton" name="vAmOff">
+        <property name="text">
+         <string>Fermer</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="vAmOn">
+        <property name="text">
+         <string>Ouvrir</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="3" column="1">
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0" rowspan="2">
+       <widget class="QPushButton" name="pAmOnOff">
+        <property name="text">
+         <string>Ouvrir</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" rowspan="2">
+       <widget class="QPushButton" name="pAvOff_2">
+        <property name="text">
+         <string>Fermer</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="7" column="1">
+     <layout class="QGridLayout" name="gridLayout_7">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="vAvOn">
+        <property name="text">
+         <string>Ouvrir</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="vAvOff">
+        <property name="text">
+         <string>Fermer</string>
         </property>
        </widget>
       </item>
