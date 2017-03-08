@@ -7,6 +7,10 @@ Expert::Expert(Ecluse *e) :
 {
     ui->setupUi(this);
     ecluse = e;
+    feuAm = false;
+    feuAv = false;
+    ui->feuAval->setStyleSheet("background-image: url(./../Ecluse/FeuRouge.png); background-position: center; ");
+    ui->feuAmont->setStyleSheet("background-image: url(./../Ecluse/FeuRouge.png); background-position: center; ");
     ui->barreNiveau->setValue(0);
     tBP = new ThreadBarrePro(&e->niveauEcluse);
     tBP->start();
@@ -46,11 +50,25 @@ void Expert::on_boutonStartAlarme_released()
 void Expert::on_boutonFeuAmont_released()
 {
     ecluse->switchFeu(AMONT);
+    if (feuAm) {
+        ui->feuAmont->setStyleSheet("background-image: url(./../Ecluse/FeuRouge.png); background-position: center; ");
+        feuAm = false;
+    } else {
+        ui->feuAmont->setStyleSheet("background-image: url(./../Ecluse/FeuVert.png); background-position: center; ");
+        feuAm = true;
+    }
 }
 
 void Expert::on_boutonFeuAval_released()
 {
     ecluse->switchFeu(AVAL);
+    if (feuAv) {
+        ui->feuAval->setStyleSheet("background-image: url(./../Ecluse/FeuRouge.png); background-position: center; ");
+        feuAv = false;
+    } else {
+        ui->feuAval->setStyleSheet("background-image: url(./../Ecluse/FeuVert.png); background-position: center; ");
+        feuAv = true;
+    }
 }
 
 void Expert::on_pAmOnOff_released()
