@@ -19,7 +19,6 @@ Ecluse::Ecluse(QWidget *parent) :
     ui->bateauAm->setVisible(true);
     ui->bateauAv->setVisible(false);
     ui->bateauEcAm->setVisible(false);
-    ui->bateauEcMid->setVisible(false);
     ui->bateauEcAv->setVisible(false);
     nbrVavleOp = 0;
     nbrPorteOp = 0;
@@ -83,6 +82,28 @@ void Ecluse::update()
         case 50 : ui->eauEcAm->setVisible(false); ui->eauEcMid->setVisible(true);
             break;
         case 0 : ; ui->eauEcAm->setVisible(false); ui->eauEcMid->setVisible(false);
+            break;
+    }
+    switch (pos) {
+        case BAVAL : ui->bateauAv->setVisible(true);
+        ui->bateauAm->setVisible(false);
+        ui->bateauEcAv->setVisible(false);
+        ui->bateauEcAm->setVisible(false);
+            break;
+        case BECAVAL : ui->bateauEcAv->setVisible(true);
+        ui->bateauAv->setVisible(false);
+        ui->bateauAm->setVisible(false);
+        ui->bateauEcAm->setVisible(false);
+            break;
+        case BECAMONT : ui->bateauEcAm->setVisible(true);
+        ui->bateauAv->setVisible(false);
+        ui->bateauEcAv->setVisible(false);
+        ui->bateauAm->setVisible(false);
+            break;
+        case BAMONT : ui->bateauAm->setVisible(true);
+        ui->bateauAv->setVisible(false);
+        ui->bateauEcAv->setVisible(false);
+        ui->bateauEcAm->setVisible(false);
             break;
     }
     if (listePortes[AVAL]->getPanne()) {
