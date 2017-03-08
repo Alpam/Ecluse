@@ -33,6 +33,7 @@ public:
     bool porteOuvrable(int num);
     bool valveOuvrable();
     bool getAlarm();
+    void feuxSetRed();
     void switchFeu(int num);
     bool isOpen(int num);
     bool isClose(int num);

@@ -17,6 +17,7 @@ Automatique::Automatique(Ecluse *e) :
     ui->boutonProgression->setDisabled(true);
     tBP = new ThreadBarrePro(&e->niveauEcluse);
     tBP->start();
+    ecluse->feuxSetRed();
     connect(tBP, SIGNAL(fin()), this, SLOT(rien()));
     connect(tBP, SIGNAL(timeToUpdate(int)), this, SLOT(slotUpDate(int)));
     bool feuAm=false;
@@ -57,10 +58,21 @@ void Automatique::on_startAlarme_released()
     ecluse->putAlarm();
 }
 
+void Automatique::on_radBouAmAv_clicked()
+{
+    ui->boutonStartPassage->setDisabled(false);
+}
+
+void Automatique::on_radBouAvAm_clicked()
+{
+    ui->boutonStartPassage->setDisabled(false);
+}
+
+
 void Automatique::on_boutonStartPassage_released()
 {
-    feuAm = false;
-    feuAv = false;
+    ui->radBouAmAv->setDisabled(true);
+    ui->radBouAvAm->setDisabled(true);
     ecluse->fermeValve(AMONT);
     ecluse->fermeValve(AVAL);
     if (ui->radBouAmAv->isChecked()){
@@ -83,14 +95,8 @@ void Automatique::on_boutonStartPassage_released()
     }
 }
 
-void Automatique::on_radBouAmAv_clicked()
-{
-    ui->boutonStartPassage->setDisabled(false);
-}
-
 void Automatique::secondStart(){
     th->terminate();
-    delete th;
     if(depart==AMONT){
         ecluse->ouvreValve(AMONT);
         thn = new ThreadAttNiveau(&ecluse->niveauEcluse,100);
@@ -107,7 +113,6 @@ void Automatique::secondStart(){
 
 void Automatique::troisiemeStart(){
     thn->terminate();
-    delete thn;
     if(depart==AMONT){
         ecluse->fermeValve(AMONT);
         ecluse->ouvrePorte(AMONT);
@@ -125,8 +130,6 @@ void Automatique::troisiemeStart(){
 }
 
 void Automatique::finStart(){
-    th->terminate();
-    delete th;
     if(depart==AMONT){
         feuAm = true;
     }
@@ -135,4 +138,93 @@ void Automatique::finStart(){
     }
     ui->boutonStartPassage->setDisabled(true);
     ui->boutonProgression->setDisabled(false);
+    th->terminate();
+    thn->terminate();
+}
+
+void Automatique::on_boutonProgression_released()
+{
+    if(depart==AMONT){
+        feuAm=false;
+        ecluse->fermePorte(AMONT);
+        th = new ThreadAttPorte(ecluse->addPorteAmont, FERME);
+        th->start();
+        connect(th,SIGNAL(finPorte()),this,SLOT(secondProgression()));
+    }
+    else{
+        feuAv=false;
+        ecluse->fermePorte(AVAL);
+        th = new ThreadAttPorte(ecluse->addPorteAval, FERME);
+        th->start();
+        connect(th,SIGNAL(finPorte()),this,SLOT(secondProgression()));
+
+    }
+}
+
+void Automatique::secondProgression(){
+    th->terminate();
+    if(depart==AMONT){
+        ecluse->ouvreValve(AVAL);
+        thn = new ThreadAttNiveau(&ecluse->niveauEcluse,0);
+        thn->start();
+        connect(thn,SIGNAL(finNiv()),this,SLOT(troisiemeProgression()));
+    }
+    else{
+        ecluse->ouvreValve(AMONT);
+        thn = new ThreadAttNiveau(&ecluse->niveauEcluse,100);
+        thn->start();
+        connect(thn,SIGNAL(finNiv()),this,SLOT(troisiemeProgression()));
+    }
+}
+
+void Automatique::troisiemeProgression(){
+    thn->terminate();
+    if(depart==AMONT){
+        ecluse->fermeValve(AVAL);
+        ecluse->ouvrePorte(AVAL);
+        th = new ThreadAttPorte(ecluse->addPorteAval, OUVRE);
+        th->start();
+        connect(th,SIGNAL(finPorte()),this,SLOT(finProgression()));
+    }
+    else{
+        ecluse->fermeValve(AMONT);
+        ecluse->ouvrePorte(AMONT);
+        th = new ThreadAttPorte(ecluse->addPorteAmont, OUVRE);
+        th->start();
+        connect(th,SIGNAL(finPorte()),this,SLOT(finProgression()));
+    }
+}
+
+void Automatique::finProgression(){
+    th->terminate();
+    if(depart==AMONT){
+        feuAv=true;
+    }
+    else{
+        feuAm=true;
+    }
+    ui->boutonProgression->setDisabled(true);
+    ui->boutonFinPassage->setDisabled(false);
+}
+
+void Automatique::on_boutonFinPassage_released()
+{
+    if(depart==AMONT){
+        feuAv=false;
+        ecluse->fermePorte(AVAL);
+    }
+    else{
+        feuAm=false;
+        ecluse->fermePorte(AMONT);
+    }
+    ui->boutonStartPassage->setDisabled(true);
+    ui->boutonFinPassage->setDisabled(true);
+    ui->radBouAmAv->setAutoExclusive(false);
+    ui->radBouAvAm->setAutoExclusive(false);
+    ui->radBouAmAv->setChecked(false);
+    ui->radBouAvAm->setChecked(false);
+    ui->radBouAmAv->setAutoExclusive(false);
+    ui->radBouAvAm->setAutoExclusive(false);
+    ui->radBouAmAv->setDisabled(false);
+    ui->radBouAvAm->setDisabled(false);
 }

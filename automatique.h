@@ -32,10 +32,19 @@ private slots:
 
     void on_radBouAmAv_clicked();
 
+    void on_boutonProgression_released();
+
+    void on_boutonFinPassage_released();
+
+    void on_radBouAvAm_clicked();
+
 public slots :
     void secondStart();
     void troisiemeStart();
     void finStart();
+    void secondProgression();
+    void troisiemeProgression();
+    void finProgression();
 
 private:
     Ui::Automatique *ui;

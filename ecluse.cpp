@@ -323,6 +323,11 @@ bool Ecluse::getAlarm(){
     return alarmeGenerale;
 }
 
+void Ecluse::feuxSetRed(){
+    listeFeux[AVAL]->setRed();
+    listeFeux[AMONT]->setRed();
+}
+
 void Ecluse::switchFeu(int num){
     if(listeFeux[num]->getColor()=='R'){
         listeFeux[num]->setGreen();
