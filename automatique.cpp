@@ -25,6 +25,10 @@ Automatique::Automatique(Ecluse *e) :
 
 Automatique::~Automatique()
 {
+    th->terminate();
+    delete th;
+    thn->terminate();
+    delete thn;
     tBP->terminate();
     delete tBP;
     delete ui;
@@ -60,12 +64,22 @@ void Automatique::on_boutonStartPassage_released()
     ecluse->fermeValve(AMONT);
     ecluse->fermeValve(AVAL);
     if (ui->radBouAmAv->isChecked()){
+        depart = AMONT;
         if(!(ecluse->isClose(AVAL))){
             ecluse->fermePorte(AVAL);
         }
-       // ThreadAttPort th = new ThreadAttPort(AVAL,);
+       th = new ThreadAttPorte(ecluse->addPorteAval,FERME);
+       th->start();
+       connect(th,SIGNAL(finPorte()),this,SLOT(secondStart()));
     }
     if (ui->radBouAvAm->isChecked()){
+        depart = AVAL;
+        if(!(ecluse->isClose(AMONT))){
+            ecluse->fermePorte(AMONT);
+        }
+       th = new ThreadAttPorte(ecluse->addPorteAmont,FERME);
+       th->start();
+       connect(th,SIGNAL(finPorte()),this,SLOT(secondStart()));
     }
 }
 
@@ -74,8 +88,51 @@ void Automatique::on_radBouAmAv_clicked()
     ui->boutonStartPassage->setDisabled(false);
 }
 
-void Automatique::signalFinStart(){
-    depart==AMONT?feuAm=true:feuAv=true;
+void Automatique::secondStart(){
+    th->terminate();
+    delete th;
+    if(depart==AMONT){
+        ecluse->ouvreValve(AMONT);
+        thn = new ThreadAttNiveau(&ecluse->niveauEcluse,100);
+        thn->start();
+        connect(thn,SIGNAL(finNiv()),this,SLOT(troisiemeStart()));
+    }
+    else{
+        ecluse->ouvreValve(AVAL);
+        thn = new ThreadAttNiveau(&ecluse->niveauEcluse,0);
+        thn->start();
+        connect(thn,SIGNAL(finNiv()),this,SLOT(troisiemeStart()));
+    }
+}
+
+void Automatique::troisiemeStart(){
+    thn->terminate();
+    delete thn;
+    if(depart==AMONT){
+        ecluse->fermeValve(AMONT);
+        ecluse->ouvrePorte(AMONT);
+        th = new ThreadAttPorte(ecluse->addPorteAmont, OUVRE);
+        th->start();
+        connect(th,SIGNAL(finPorte()),this,SLOT(finStart()));
+    }
+    else{
+        ecluse->fermeValve(AVAL);
+        ecluse->ouvrePorte(AVAL);
+        th = new ThreadAttPorte(ecluse->addPorteAval,OUVRE);
+        th->start();
+        connect(th,SIGNAL(finPorte()),this,SLOT(finStart()));
+    }
+}
+
+void Automatique::finStart(){
+    th->terminate();
+    delete th;
+    if(depart==AMONT){
+        feuAm = true;
+    }
+    else{
+        feuAv = true;
+    }
     ui->boutonStartPassage->setDisabled(true);
     ui->boutonProgression->setDisabled(false);
 }
