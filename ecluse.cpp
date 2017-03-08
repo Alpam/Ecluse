@@ -219,7 +219,7 @@ void Ecluse::ouvreValve(int num){
         if(nbrVavleOp==2){
             if(theau!=NULL){
                 theau->terminate();
-               // delete theau;
+               //delete theau;
                 theau=NULL;
             }
             niveauEcluse = 50;
@@ -287,8 +287,8 @@ void Ecluse::miseAlArret(){
         if((listePortes[i]->getState()==EN_OUVERTURE)||(listePortes[i]->getState()==EN_FERMETURE)){
             timer->stop();
             thread->terminate();
-            delete timer;
-            delete thread;
+            //delete timer;
+            //delete thread;
             listePortes[i]->arret();
         }
     }
