@@ -68,6 +68,7 @@ void Automatique::slotUpDate(int nE){
 void Automatique::on_startAlarme_released()
 {
     ecluse->putAlarm();
+    ecluse->feuxSetRed();
 }
 
 void Automatique::on_radBouAmAv_clicked()

@@ -29,6 +29,8 @@ Expert::Expert(Ecluse *e) :
     tBP->start();
     connect(tBP, SIGNAL(fin()), this, SLOT(rien()));
     connect(tBP, SIGNAL(timeToUpdate(int)), this, SLOT(slotUpDate(int)));
+    ecluse->feuxSetRed();
+    ecluse->update();
 }
 
 Expert::~Expert()
