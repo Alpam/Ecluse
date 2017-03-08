@@ -5,6 +5,7 @@
 #include "expert.h"
 #include "ecluse.h"
 #include "threadbarrepro.h"
+#include "threadattniveau.h"
 
 namespace Ui {
 class Automatique;
@@ -28,9 +29,16 @@ private slots:
 
     void on_boutonStartPassage_released();
 
+    void on_radBouAmAv_clicked();
+
+public slots :
+    void signalFinStart(int n);
+
 private:
     Ui::Automatique *ui;
     ThreadBarrePro *tBP;
+    ThreadAttNiveau *thread;
+    int depart;
 
 };
 

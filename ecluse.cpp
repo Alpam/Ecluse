@@ -341,3 +341,10 @@ void Ecluse::setAlarm(bool a) {
     alarmeGenerale = a;
 }
 
+bool Ecluse::isOpen(int num){
+    return listePortes[num]->getState()==OUVRE;
+}
+
+bool Ecluse::isClose(int num){
+    return listePortes[num]->getState()==FERME;
+}

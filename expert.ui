@@ -16,7 +16,7 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>0</x>
      <y>20</y>
      <width>659</width>
      <height>441</height>
@@ -123,15 +123,12 @@
     </item>
     <item row="0" column="5" colspan="2">
      <layout class="QGridLayout" name="gridLayout_4">
-      <item row="1" column="0">
+      <item row="0" column="0">
        <widget class="QPushButton" name="boutonFeuAmont">
         <property name="text">
          <string>FEU AMONT</string>
         </property>
        </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QGraphicsView" name="feuAmont"/>
       </item>
      </layout>
     </item>
@@ -240,23 +237,43 @@
     </item>
     <item row="0" column="1" colspan="3">
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="1" column="0">
+      <item row="1" column="1">
        <widget class="QPushButton" name="boutonFeuAval">
         <property name="text">
          <string>FEU AVAL</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QGraphicsView" name="feuAval">
-        <property name="maximumSize">
+      <item row="1" column="0">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
          <size>
-          <width>247</width>
-          <height>16777215</height>
+          <width>40</width>
+          <height>20</height>
          </size>
         </property>
-        <property name="styleSheet">
-         <string notr="true"/>
+       </spacer>
+      </item>
+      <item row="1" column="2">
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>TextLabel</string>
         </property>
        </widget>
       </item>

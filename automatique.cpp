@@ -12,6 +12,9 @@ Automatique::Automatique(Ecluse *e) :
     ui->setupUi(this);
     ecluse = e;
     ui->barreNiveau->setValue(0);
+    ui->boutonFinPassage->setDisabled(true);
+    ui->boutonStartPassage->setDisabled(true);
+    ui->boutonFinPassage->setDisabled(true);
     tBP = new ThreadBarrePro(&e->niveauEcluse);
     tBP->start();
     connect(tBP, SIGNAL(fin()), this, SLOT(rien()));
@@ -51,14 +54,12 @@ void Automatique::on_startAlarme_released()
 void Automatique::on_boutonStartPassage_released()
 {
     if (ui->radBouAmAv->isChecked()){
-        if (ecluse->niveauEcluse != 100) {
-            ecluse->ouvreValve(AMONT);
-            while(ecluse->niveauEcluse != 100) {
-            }
-            ecluse->ouvrePorte(AMONT);
+        depart=AMONT;
+        ThreadAttNiveau thread = new ThreadAttNiveau(ecluse, 100, );
+        connect(thread, SIGNAL(fin(int)), this, SLOT(signalFinStart(int)));
         }
     }
-    if (ui->radBouAvAm->isChecked()){
+   /* if (ui->radBouAvAm->isChecked()){
         if (ecluse->niveauEcluse != 0) {
             ecluse->ouvreValve(AVAL);
             while(ecluse->niveauEcluse != 0) {
@@ -66,5 +67,15 @@ void Automatique::on_boutonStartPassage_released()
             }
             ecluse->ouvrePorte(AVAL);
         }
-    }
+    }*/
+}
+
+void Automatique::on_radBouAmAv_clicked()
+{
+    ui->boutonStartPassage->setDisabled(false);
+}
+
+void Automatique::signalFinStart(int n){
+    ui->boutonStartPassage->setDisabled(true);
+    ui->boutonProgression->setDisabled(false);
 }

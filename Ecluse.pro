@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     ecluse.cpp \
     mythread.cpp \
     threadniveaueau.cpp \
-    threadbarrepro.cpp
+    threadbarrepro.cpp \
+    threadattniveau.cpp
 
 HEADERS  += mainwindow.h \
     automatique.h \
@@ -35,7 +36,8 @@ HEADERS  += mainwindow.h \
     ecluse.h \
     mythread.h \
     threadniveaueau.h \
-    threadbarrepro.h
+    threadbarrepro.h \
+    threadattniveau.h
 
 FORMS    += \
     automatique.ui \
