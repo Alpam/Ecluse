@@ -378,3 +378,27 @@ bool Ecluse::isOpen(int num){
 bool Ecluse::isClose(int num){
     return listePortes[num]->getState()==FERME;
 }
+
+void Ecluse::on_pannePorteAm_released()
+{
+    listePortes[AMONT]->declarePanne();
+    update();
+}
+
+void Ecluse::on_pannePorteAv_released()
+{
+    listePortes[AVAL]->declarePanne();
+    update();
+}
+
+void Ecluse::on_panneValveAv_released()
+{
+    listeValves[AVAL]->declarePanne();
+    update();
+}
+
+void Ecluse::on_panneValveAm_released()
+{
+    listeValves[AMONT]->declarePanne();
+    update();
+}

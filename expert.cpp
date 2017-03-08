@@ -98,11 +98,13 @@ void Expert::on_pAvOff_released()
 void Expert::on_boutonReparePorteAm_released()
 {
     ecluse->resolvePanneP(AMONT);
+    ecluse->update();
 }
 
 void Expert::on_boutonReparePorteAv_released()
 {
-    ecluse->resolvePanneP(AMONT);
+    ecluse->resolvePanneP(AVAL);
+    ecluse->update();
 }
 
 void Expert::on_boutonStopAlarme_released()
@@ -137,9 +139,11 @@ void Expert::on_vAmOff_released()
 void Expert::on_boutonRepareValveAm_released()
 {
     ecluse->resolvePanneV(AMONT);
+    ecluse->update();
 }
 
 void Expert::on_boutonRepareValveAv_released()
 {
      ecluse->resolvePanneV(AVAL);
+     ecluse->update();
 }

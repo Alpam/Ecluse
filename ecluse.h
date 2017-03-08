@@ -62,6 +62,11 @@ public slots :
         void timerAmont();
         void timerAval();
         void slotUpdate();
+private slots:
+        void on_pannePorteAm_released();
+        void on_pannePorteAv_released();
+        void on_panneValveAv_released();
+        void on_panneValveAm_released();
 };
 
 #endif // ECLUSE_H

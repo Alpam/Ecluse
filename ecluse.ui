@@ -11247,6 +11247,58 @@
     <string/>
    </property>
   </widget>
+  <widget class="QPushButton" name="pannePorteAm">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>320</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Panne Porte Amont</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pannePorteAv">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>320</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Panne Porte Aval</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="panneValveAv">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>400</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Panne Valve Aval</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="panneValveAm">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>400</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Panne Valve Amont</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
