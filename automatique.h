@@ -52,10 +52,6 @@ private:
     ThreadAttPorte *th;
     ThreadAttNiveau *thn;
     int depart;
-    bool feuAm;
-    bool feuAv;
-
-
 };
 
 #endif // AUTOMATIQUE_H

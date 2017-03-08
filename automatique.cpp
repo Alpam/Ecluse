@@ -20,8 +20,7 @@ Automatique::Automatique(Ecluse *e) :
     ecluse->feuxSetRed();
     connect(tBP, SIGNAL(fin()), this, SLOT(rien()));
     connect(tBP, SIGNAL(timeToUpdate(int)), this, SLOT(slotUpDate(int)));
-    bool feuAm=false;
-    bool feuAv=false;
+
 }
 
 Automatique::~Automatique()
@@ -61,11 +60,13 @@ void Automatique::on_startAlarme_released()
 void Automatique::on_radBouAmAv_clicked()
 {
     ui->boutonStartPassage->setDisabled(false);
+    ecluse->pos = BAMONT;
 }
 
 void Automatique::on_radBouAvAm_clicked()
 {
     ui->boutonStartPassage->setDisabled(false);
+    ecluse->pos = BAVAL;
 }
 
 
@@ -131,10 +132,12 @@ void Automatique::troisiemeStart(){
 
 void Automatique::finStart(){
     if(depart==AMONT){
-        feuAm = true;
+        ecluse->switchFeu(AMONT);
+        ecluse->pos = BECAMONT;
     }
     else{
-        feuAv = true;
+        ecluse->switchFeu(AVAL);
+        ecluse->pos = BECAVAL;
     }
     ui->boutonStartPassage->setDisabled(true);
     ui->boutonProgression->setDisabled(false);
@@ -145,14 +148,14 @@ void Automatique::finStart(){
 void Automatique::on_boutonProgression_released()
 {
     if(depart==AMONT){
-        feuAm=false;
+        ecluse->switchFeu(AMONT);
         ecluse->fermePorte(AMONT);
         th = new ThreadAttPorte(ecluse->addPorteAmont, FERME);
         th->start();
         connect(th,SIGNAL(finPorte()),this,SLOT(secondProgression()));
     }
     else{
-        feuAv=false;
+        ecluse->switchFeu(AVAL);
         ecluse->fermePorte(AVAL);
         th = new ThreadAttPorte(ecluse->addPorteAval, FERME);
         th->start();
@@ -198,10 +201,12 @@ void Automatique::troisiemeProgression(){
 void Automatique::finProgression(){
     th->terminate();
     if(depart==AMONT){
-        feuAv=true;
+        ecluse->pos = BECAVAL;
+        ecluse->switchFeu(AVAL);
     }
     else{
-        feuAm=true;
+        ecluse->pos = BECAMONT;
+        ecluse->switchFeu(AMONT);
     }
     ui->boutonProgression->setDisabled(true);
     ui->boutonFinPassage->setDisabled(false);
@@ -210,13 +215,16 @@ void Automatique::finProgression(){
 void Automatique::on_boutonFinPassage_released()
 {
     if(depart==AMONT){
-        feuAv=false;
+        ecluse->pos = AVAL;
+        ecluse->switchFeu(AVAL);
         ecluse->fermePorte(AVAL);
     }
     else{
-        feuAm=false;
+        ecluse->pos = AMONT;
+        ecluse->switchFeu(AMONT);
         ecluse->fermePorte(AMONT);
     }
+    ecluse->feuxSetRed();
     ui->boutonStartPassage->setDisabled(true);
     ui->boutonFinPassage->setDisabled(true);
     ui->radBouAmAv->setAutoExclusive(false);
