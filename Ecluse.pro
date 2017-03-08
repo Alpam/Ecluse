@@ -2,6 +2,8 @@
 #
 # Project created by QtCreator 2017-03-05T21:08:08
 #
+# Auteurs : Arthur Delrue et Paul Robin
+#
 #-------------------------------------------------
 
 QT       += core gui

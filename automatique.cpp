@@ -1,3 +1,16 @@
+/*
+ * =====================================================================================
+ *
+ *       Filename:
+ *
+ *    Description:
+ *
+ *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
+ *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
+ *
+ * =====================================================================================
+ */
+
 #include "automatique.h"
 #include "ui_automatique.h"
 #include <unistd.h>
@@ -26,11 +39,11 @@ Automatique::Automatique(Ecluse *e) :
 Automatique::~Automatique()
 {
     th->terminate();
-    delete th;
+    //delete th;
     thn->terminate();
-    delete thn;
+    //delete thn;
     tBP->terminate();
-    delete tBP;
+    //delete tBP;
     delete ui;
 }
 
@@ -203,6 +216,7 @@ void Automatique::troisiemeProgression(){
 
 void Automatique::finProgression(){
     th->terminate();
+    th->quit();
     if(depart==AMONT){
         ecluse->switchFeu(AVAL);
     }
@@ -218,13 +232,24 @@ void Automatique::on_boutonFinPassage_released()
     if(depart==AMONT){
         ecluse->pos = BAVAL;
         ecluse->switchFeu(AVAL);
-        //ecluse->fermePorte(AVAL);
+        ecluse->fermePorte(AVAL);
+        th = new ThreadAttPorte(ecluse->addPorteAval, FERME);
+        th->start();
+        connect(th,SIGNAL(finPorte()),this,SLOT(finTerminaison()));
     }
     else{
         ecluse->pos = BAMONT;
         ecluse->switchFeu(AMONT);
-        //ecluse->fermePorte(AMONT);
+        ecluse->fermePorte(AMONT);
+        th = new ThreadAttPorte(ecluse->addPorteAmont, FERME);
+        th->start();
+        connect(th,SIGNAL(finPorte()),this,SLOT(finTerminaison()));
     }
+}
+
+void Automatique::finTerminaison(){
+    th->terminate();
+    th->quit();
     ecluse->feuxSetRed();
     ui->boutonStartPassage->setDisabled(true);
     ui->boutonFinPassage->setDisabled(true);

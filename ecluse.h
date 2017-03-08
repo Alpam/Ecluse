@@ -1,3 +1,16 @@
+/*
+ * =====================================================================================
+ *
+ *       Filename:
+ *
+ *    Description:
+ *
+ *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
+ *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
+ *
+ * =====================================================================================
+ */
+
 #ifndef ECLUSE_H
 #define ECLUSE_H
 

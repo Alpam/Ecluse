@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>748</width>
+    <width>681</width>
     <height>474</height>
    </rect>
   </property>
@@ -16,9 +16,9 @@
   <widget class="QTextEdit" name="etat">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>10</x>
      <y>10</y>
-     <width>271</width>
+     <width>281</width>
      <height>451</height>
     </rect>
    </property>
@@ -26,7 +26,7 @@
   <widget class="QLabel" name="bateauAm">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>310</x>
      <y>60</y>
      <width>71</width>
      <height>31</height>
@@ -460,7 +460,7 @@
   <widget class="QLabel" name="eauAm">
    <property name="geometry">
     <rect>
-     <x>360</x>
+     <x>300</x>
      <y>90</y>
      <width>111</width>
      <height>151</height>
@@ -891,7 +891,7 @@
   <widget class="QLabel" name="porteAm">
    <property name="geometry">
     <rect>
-     <x>470</x>
+     <x>410</x>
      <y>50</y>
      <width>21</width>
      <height>191</height>
@@ -1322,7 +1322,7 @@
   <widget class="QLabel" name="porteAv">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>540</x>
      <y>50</y>
      <width>21</width>
      <height>191</height>
@@ -1753,7 +1753,7 @@
   <widget class="QLabel" name="eauEcAm">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>430</x>
      <y>90</y>
      <width>111</width>
      <height>151</height>
@@ -2187,7 +2187,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>640</x>
+     <x>580</x>
      <y>160</y>
      <width>71</width>
      <height>31</height>
@@ -2621,7 +2621,7 @@
   <widget class="QLabel" name="bateauEcAm">
    <property name="geometry">
     <rect>
-     <x>510</x>
+     <x>450</x>
      <y>60</y>
      <width>71</width>
      <height>31</height>
@@ -3055,7 +3055,7 @@
   <widget class="QLabel" name="eauEcAv">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>430</x>
      <y>190</y>
      <width>111</width>
      <height>51</height>
@@ -3486,7 +3486,7 @@
   <widget class="QLabel" name="eauAv">
    <property name="geometry">
     <rect>
-     <x>620</x>
+     <x>560</x>
      <y>190</y>
      <width>111</width>
      <height>51</height>
@@ -3917,7 +3917,7 @@
   <widget class="QLabel" name="eauEcMid">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>430</x>
      <y>150</y>
      <width>111</width>
      <height>91</height>
@@ -4348,7 +4348,7 @@
   <widget class="QLabel" name="bateauEcAv">
    <property name="geometry">
     <rect>
-     <x>510</x>
+     <x>450</x>
      <y>160</y>
      <width>71</width>
      <height>31</height>
@@ -4782,7 +4782,7 @@
   <widget class="QLabel" name="feuAm">
    <property name="geometry">
     <rect>
-     <x>360</x>
+     <x>300</x>
      <y>10</y>
      <width>81</width>
      <height>31</height>
@@ -5213,7 +5213,7 @@
   <widget class="QLabel" name="feuAv">
    <property name="geometry">
     <rect>
-     <x>640</x>
+     <x>580</x>
      <y>10</y>
      <width>81</width>
      <height>31</height>
@@ -5644,7 +5644,7 @@
   <widget class="QLabel" name="feuAmV">
    <property name="geometry">
     <rect>
-     <x>360</x>
+     <x>300</x>
      <y>10</y>
      <width>41</width>
      <height>31</height>
@@ -6075,7 +6075,7 @@
   <widget class="QLabel" name="feuAvV">
    <property name="geometry">
     <rect>
-     <x>640</x>
+     <x>580</x>
      <y>10</y>
      <width>41</width>
      <height>31</height>
@@ -6506,7 +6506,7 @@
   <widget class="QLabel" name="feuAvR">
    <property name="geometry">
     <rect>
-     <x>680</x>
+     <x>620</x>
      <y>10</y>
      <width>41</width>
      <height>31</height>
@@ -6937,7 +6937,7 @@
   <widget class="QLabel" name="feuAmR">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>340</x>
      <y>10</y>
      <width>41</width>
      <height>31</height>
@@ -7368,7 +7368,7 @@
   <widget class="QLabel" name="porteAmFct">
    <property name="geometry">
     <rect>
-     <x>470</x>
+     <x>410</x>
      <y>50</y>
      <width>21</width>
      <height>191</height>
@@ -7799,7 +7799,7 @@
   <widget class="QLabel" name="porteAvFct">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>540</x>
      <y>50</y>
      <width>21</width>
      <height>191</height>
@@ -8230,7 +8230,7 @@
   <widget class="QLabel" name="porteAvOp">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>540</x>
      <y>190</y>
      <width>21</width>
      <height>51</height>
@@ -8661,7 +8661,7 @@
   <widget class="QLabel" name="porteAmOp">
    <property name="geometry">
     <rect>
-     <x>470</x>
+     <x>410</x>
      <y>90</y>
      <width>21</width>
      <height>151</height>
@@ -9092,7 +9092,7 @@
   <widget class="QLabel" name="valveAvOp">
    <property name="geometry">
     <rect>
-     <x>570</x>
+     <x>510</x>
      <y>240</y>
      <width>111</width>
      <height>16</height>
@@ -9523,7 +9523,7 @@
   <widget class="QLabel" name="valveAmOp">
    <property name="geometry">
     <rect>
-     <x>410</x>
+     <x>350</x>
      <y>240</y>
      <width>111</width>
      <height>16</height>
@@ -9954,7 +9954,7 @@
   <widget class="QLabel" name="valveAm">
    <property name="geometry">
     <rect>
-     <x>410</x>
+     <x>350</x>
      <y>240</y>
      <width>111</width>
      <height>16</height>
@@ -10385,7 +10385,7 @@
   <widget class="QLabel" name="valveAv">
    <property name="geometry">
     <rect>
-     <x>570</x>
+     <x>510</x>
      <y>240</y>
      <width>111</width>
      <height>16</height>
@@ -10816,7 +10816,7 @@
   <widget class="QPushButton" name="pannePorteAm">
    <property name="geometry">
     <rect>
-     <x>380</x>
+     <x>320</x>
      <y>320</y>
      <width>141</width>
      <height>61</height>
@@ -10829,7 +10829,7 @@
   <widget class="QPushButton" name="pannePorteAv">
    <property name="geometry">
     <rect>
-     <x>580</x>
+     <x>520</x>
      <y>320</y>
      <width>141</width>
      <height>61</height>
@@ -10842,8 +10842,8 @@
   <widget class="QPushButton" name="panneValveAv">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>400</y>
+     <x>520</x>
+     <y>390</y>
      <width>141</width>
      <height>61</height>
     </rect>
@@ -10855,8 +10855,8 @@
   <widget class="QPushButton" name="panneValveAm">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>400</y>
+     <x>320</x>
+     <y>390</y>
      <width>141</width>
      <height>61</height>
     </rect>
@@ -10868,7 +10868,7 @@
   <widget class="QLabel" name="porteAvP">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>540</x>
      <y>50</y>
      <width>21</width>
      <height>141</height>
@@ -11299,7 +11299,7 @@
   <widget class="QLabel" name="porteAmP">
    <property name="geometry">
     <rect>
-     <x>470</x>
+     <x>410</x>
      <y>50</y>
      <width>21</width>
      <height>41</height>
@@ -11730,7 +11730,7 @@
   <widget class="QLabel" name="valveAvP">
    <property name="geometry">
     <rect>
-     <x>570</x>
+     <x>510</x>
      <y>240</y>
      <width>111</width>
      <height>16</height>
@@ -12161,7 +12161,7 @@
   <widget class="QLabel" name="valveAmP">
    <property name="geometry">
     <rect>
-     <x>410</x>
+     <x>350</x>
      <y>240</y>
      <width>111</width>
      <height>16</height>
@@ -12592,7 +12592,7 @@
   <widget class="QLabel" name="valveAvA">
    <property name="geometry">
     <rect>
-     <x>630</x>
+     <x>570</x>
      <y>240</y>
      <width>51</width>
      <height>16</height>
@@ -13023,7 +13023,7 @@
   <widget class="QLabel" name="valveAmA">
    <property name="geometry">
     <rect>
-     <x>410</x>
+     <x>350</x>
      <y>240</y>
      <width>51</width>
      <height>16</height>
@@ -13454,7 +13454,7 @@
   <widget class="QLabel" name="porteAmA">
    <property name="geometry">
     <rect>
-     <x>470</x>
+     <x>410</x>
      <y>50</y>
      <width>21</width>
      <height>21</height>
@@ -13885,7 +13885,7 @@
   <widget class="QLabel" name="porteAvA">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>540</x>
      <y>50</y>
      <width>21</width>
      <height>21</height>
@@ -14316,7 +14316,7 @@
   <widget class="QLabel" name="alarmGen">
    <property name="geometry">
     <rect>
-     <x>480</x>
+     <x>420</x>
      <y>270</y>
      <width>131</width>
      <height>31</height>

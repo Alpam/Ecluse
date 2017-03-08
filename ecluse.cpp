@@ -1,3 +1,16 @@
+/*
+ * =====================================================================================
+ *
+ *       Filename:
+ *
+ *    Description:
+ *
+ *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
+ *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
+ *
+ * =====================================================================================
+ */
+
 #include "ecluse.h"
 #include "threadniveaueau.h"
 #include "threadporte.h"
@@ -18,7 +31,7 @@ Ecluse::Ecluse(QWidget *parent) :
     listeValves[1]=new Valve;
     listeFeux[0]=new SignalLumineux;
     listeFeux[1]=new SignalLumineux;
-    ui->bateauAm->setVisible(true);
+    ui->bateauAm->setVisible(false);
     ui->bateauAv->setVisible(false);
     ui->bateauEcAm->setVisible(false);
     ui->bateauEcAv->setVisible(false);
@@ -167,8 +180,8 @@ void Ecluse::update()
                       + "\n\nPORTE AVAL\n\tEtat : " + etatPorteAval + "\n\t" + alarmePorteAval + "\n\t" + pannePorteAval
                       + "\n\nVALVE AMONT\n\tEtat : " + etatValveAmont + "\n\t" + alarmeValveAmont + "\n\t" + panneValveAmont
                       + "\n\nVALVE AVAL\n\tEtat : " + etatValveAval + "\n\t" + alarmeValveAval + "\n\t" + panneValveAval
-                      + "\n\nSIGNAL LUMINEUX AVAL\t" + listeFeux[AVAL]->getColor()
-                      + "\n\nSIGNAL LUMINEUX AMONT\t" + listeFeux[AMONT]->getColor()
+                      + "\n\nSIGNAL LUMINEUX AV\t\t" + listeFeux[AVAL]->getColor()
+                      + "\n\nSIGNAL LUMINEUX AM\t\t" + listeFeux[AMONT]->getColor()
                       + "\n\nNIVEAU EAU\t" + nE);
 }
 
@@ -219,6 +232,7 @@ void Ecluse::ouvreValve(int num){
         if(nbrVavleOp==2){
             if(theau!=NULL){
                 theau->terminate();
+                theau->quit();
                 theau=NULL;
             }
             niveauEcluse = 50;
@@ -239,6 +253,7 @@ void Ecluse::fermeValve(int num){
         update();
         if(theau!=NULL){
             theau->terminate();
+            theau->quit();
             theau=NULL;
         }
         nbrVavleOp--;
@@ -279,6 +294,7 @@ void Ecluse::miseAlArret(){
         if((listePortes[i]->getState()==EN_OUVERTURE)||(listePortes[i]->getState()==EN_FERMETURE)){
             timer->stop();
             thread->terminate();
+            thread->quit();
             delete timer;
             listePortes[i]->arret();
         }
@@ -366,6 +382,7 @@ void Ecluse::timerAmont(){
     listePortes[AMONT]->arret();
     update();
     thread->terminate();
+    thread->quit();
     timer->stop();
     delete timer;
 }
@@ -375,6 +392,7 @@ void Ecluse::timerAval(){
     listePortes[AVAL]->arret();
     update();
     thread->terminate();
+    thread->quit();
     timer->stop();
     delete timer;
 }

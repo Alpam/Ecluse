@@ -1,3 +1,16 @@
+/*
+ * =====================================================================================
+ *
+ *       Filename:
+ *
+ *    Description:
+ *
+ *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
+ *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
+ *
+ * =====================================================================================
+ */
+
 #ifndef AUTOMATIQUE_H
 #define AUTOMATIQUE_H
 
@@ -45,6 +58,7 @@ public slots :
     void secondProgression();
     void troisiemeProgression();
     void finProgression();
+    void finTerminaison();
 
 private:
     Ui::Automatique *ui;
