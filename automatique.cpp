@@ -60,6 +60,10 @@ void Automatique::on_boutonStartPassage_released()
     ecluse->fermeValve(AMONT);
     ecluse->fermeValve(AVAL);
     if (ui->radBouAmAv->isChecked()){
+        if(!(ecluse->isClose(AVAL))){
+            ecluse->fermePorte(AVAL);
+        }
+       // ThreadAttPort th = new ThreadAttPort(AVAL,);
     }
     if (ui->radBouAvAm->isChecked()){
     }

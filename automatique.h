@@ -5,7 +5,6 @@
 #include "expert.h"
 #include "ecluse.h"
 #include "threadbarrepro.h"
-#include "threadattniveau.h"
 
 namespace Ui {
 class Automatique;
@@ -37,7 +36,6 @@ public slots :
 private:
     Ui::Automatique *ui;
     ThreadBarrePro *tBP;
-    ThreadAttNiveau *thread;
     int depart;
     bool feuAm;
     bool feuAv;

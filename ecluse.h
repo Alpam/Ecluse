@@ -37,8 +37,8 @@ public:
     bool isOpen(int num);
     bool isClose(int num);
     int niveauEcluse; //en pourcentage entre la hauteur de l'amont 100% et l'aval 0%
-    int addPorteAmont;
-    int addPorteAval;
+    int *addPorteAmont;
+    int *addPorteAval;
     ~Ecluse();
 
 private:
