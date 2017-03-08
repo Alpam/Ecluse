@@ -1,6 +1,6 @@
 #include "ecluse.h"
 #include "threadniveaueau.h"
-#include "mythread.h"
+#include "threadporte.h"
 #include "ui_ecluse.h"
 #include <unistd.h>
 #include <iostream>
@@ -178,7 +178,7 @@ void Ecluse::ouvrePorte(int num){
         }
         nbrPorteOp++;
         update();
-        thread = new MyThread(num,EN_OUVERTURE);
+        thread = new ThreadPorte(num,EN_OUVERTURE);
         thread->start();
         timer = new QTimer();
         if(num==AMONT){
@@ -198,7 +198,7 @@ void Ecluse::fermePorte(int num){
         return;
     }
     update();
-    thread = new MyThread(num,EN_FERMETURE);
+    thread = new ThreadPorte(num,EN_FERMETURE);
     thread->start();
     timer = new QTimer();
     if(num==AMONT){

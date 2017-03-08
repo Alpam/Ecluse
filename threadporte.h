@@ -1,15 +1,15 @@
-#ifndef MYTHREAD_H
-#define MYTHREAD_H
+#ifndef THREADPORTE_H
+#define THREADPORTE_H
 
 #include <QApplication>
 #include <QThread>
 
-class MyThread : public QThread
+class ThreadPorte : public QThread
 {
     Q_OBJECT
 
     public:
-        MyThread(int n, int a);
+        ThreadPorte(int n, int a);
 
     public slots :
         void run();

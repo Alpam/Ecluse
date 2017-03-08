@@ -1,13 +1,13 @@
-#include "mythread.h"
+#include "threadporte.h"
 #include <unistd.h>
 
-MyThread::MyThread(int n, int a)
+ThreadPorte::ThreadPorte(int n, int a)
 {
     num=n;
     act=a;
 }
 
-void MyThread::run()
+void ThreadPorte::run()
 {
     sleep(10);
     emit signalTerminal(num,act);

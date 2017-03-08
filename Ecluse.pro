@@ -21,11 +21,11 @@ SOURCES += main.cpp\
     valve.cpp \
     signallumineux.cpp \
     ecluse.cpp \
-    mythread.cpp \
     threadniveaueau.cpp \
     threadbarrepro.cpp \
     threadattporte.cpp \
-    threadattniveau.cpp
+    threadattniveau.cpp \
+    threadporte.cpp
 
 HEADERS  += mainwindow.h \
     automatique.h \
@@ -35,11 +35,11 @@ HEADERS  += mainwindow.h \
     valve.h \
     signallumineux.h \
     ecluse.h \
-    mythread.h \
     threadniveaueau.h \
     threadbarrepro.h \
     threadattporte.h \
-    threadattniveau.h
+    threadattniveau.h \
+    threadporte.h
 
 FORMS    += \
     automatique.ui \
