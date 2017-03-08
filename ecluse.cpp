@@ -364,13 +364,13 @@ void Ecluse::valideAction(int num, int act){
     }
     update();
     timer->stop();
-    delete timer;
-    delete thread;
+    //delete timer;
+    //delete thread;
 }
 
 void Ecluse::finChangementNiveau(){
     update();
-    delete theau;
+    //delete theau;
     theau=NULL;
 }
 
@@ -379,9 +379,9 @@ void Ecluse::timerAmont(){
     listePortes[AMONT]->arret();
     update();
     thread->terminate();
-    delete thread;
+    //delete thread;
     timer->stop();
-    delete timer;
+    //delete timer;
 }
 
 void Ecluse::timerAval(){
@@ -389,9 +389,9 @@ void Ecluse::timerAval(){
     listePortes[AVAL]->arret();
     update();
     thread->terminate();
-    delete thread;
+    //delete thread;
     timer->stop();
-    delete timer;
+    //delete timer;
 }
 
 void Ecluse::slotUpdate(){
