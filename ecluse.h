@@ -10,6 +10,12 @@
 #include "valve.h"
 #include "signallumineux.h"
 
+#define BAMONT 0
+#define BECAMONT 1
+#define BECMID 2
+#define BECAVAL 3
+#define BAVAL 4
+
 namespace Ui {
 class Ecluse;
 }
@@ -40,6 +46,7 @@ public:
     int niveauEcluse; //en pourcentage entre la hauteur de l'amont 100% et l'aval 0%
     int *addPorteAmont;
     int *addPorteAval;
+    int pos;
     ~Ecluse();
 
 private:
