@@ -84,40 +84,45 @@ void Ecluse::update()
         case 0 : ; ui->eauEcAm->setVisible(false); ui->eauEcMid->setVisible(false);
             break;
     }
-    if (listePortes[AVAL]->getPanne())
-        pannePorteAval = "En Panne";
-    else
-        pannePorteAval = "Fonctionnel";
-    if (listePortes[AMONT]->getPanne())
-        pannePorteAmont = "En Panne";
-    else
-        pannePorteAmont = "Fonctionnel";
-    if (listeValves[AVAL]->getPanne())
-        panneValveAval = "En Panne";
-    else
-        panneValveAval = "Fonctionnel";
-    if (listeValves[AMONT]->getPanne())
-        panneValveAmont = "En Panne";
-    else
-        panneValveAmont = "Fonctionnel";
-    if (listePortes[AVAL]->getAlarm())
-        alarmePorteAval = "En Alarme";
-    else
-        alarmePorteAval = "Pas en Alarme";
-    if (listePortes[AMONT]->getAlarm())
-        alarmePorteAmont = "En Alarme";
-    else
-        alarmePorteAmont = "Pas en Alarme";
-    if (listeValves[AVAL]->getAlarm())
-        alarmeValveAval = "En Alarme";
-    else
-        alarmeValveAval = "Pas en Alarme";
-    if (listeValves[AMONT]->getAlarm())
-        alarmeValveAmont = "En Alarme";
-    else
-        alarmeValveAmont = "Pas en Alarme";
-    if (alarmeGenerale)
+    if (listePortes[AVAL]->getPanne()) {
+        pannePorteAval = "En Panne";ui->porteAvP->setVisible(true);
+    } else {
+        pannePorteAval = "Fonctionnel";ui->porteAvP->setVisible(false);
+    } if (listePortes[AMONT]->getPanne()) {
+        pannePorteAmont = "En Panne";ui->porteAmP->setVisible(true);
+    } else {
+        pannePorteAmont = "Fonctionnel";ui->porteAmP->setVisible(false);
+    } if (listeValves[AVAL]->getPanne()) {
+        panneValveAval = "En Panne";ui->valveAvP->setVisible(true);
+    } else {
+        panneValveAval = "Fonctionnel";ui->valveAvP->setVisible(false);
+    } if (listeValves[AMONT]->getPanne()) {
+        panneValveAmont = "En Panne";ui->valveAmP->setVisible(true);
+    } else {
+        panneValveAmont = "Fonctionnel";ui->valveAmP->setVisible(false);
+    } if (listePortes[AVAL]->getAlarm()) {
+        alarmePorteAval = "En Alarme";ui->porteAvA->setVisible(true);
+    } else {
+        alarmePorteAval = "Pas en Alarme";ui->porteAvA->setVisible(false);
+    } if (listePortes[AMONT]->getAlarm()) {
+        alarmePorteAmont = "En Alarme";ui->porteAmA->setVisible(true);
+    } else {
+        alarmePorteAmont = "Pas en Alarme";ui->porteAmA->setVisible(false);
+    } if (listeValves[AVAL]->getAlarm()) {
+        alarmeValveAval = "En Alarme";ui->valveAvA->setVisible(true);
+    } else {
+        alarmeValveAval = "Pas en Alarme";ui->valveAvA->setVisible(false);
+    } if (listeValves[AMONT]->getAlarm()) {
+        alarmeValveAmont = "En Alarme";ui->valveAmA->setVisible(true);
+    } else {
+        alarmeValveAmont = "Pas en Alarme";ui->valveAmA->setVisible(false);
+    }
+    if (alarmeGenerale) {
         alarmeG = "\tECLUSE EN ALARME\n";
+        ui->alarmGen->setVisible(true);
+    } else {
+        ui->alarmGen->setVisible(false);
+    }
     if (listeFeux[AVAL]->getColor() == 'R') {
         ui->feuAvR->setVisible(true);
         ui->feuAvV->setVisible(false);
