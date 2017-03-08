@@ -79,23 +79,29 @@ void Ecluse::update()
 
     switch (niveauEcluse) {
         case 100 : ui->eauEcAm->setVisible(true);
-            if (!(ui->bateauAm->isVisible() || ui->bateauAv->isVisible())) {
+            if (ui->bateauAm->isVisible() || ui->bateauAv->isVisible()) {
                 ui->bateauEcMid->setVisible(false);
-                ui->bateauEcAm->setVisible(true);
+                ui->bateauEcAm->setVisible(false);
                 ui->bateauEcAv->setVisible(false);
+            } else {
+                ui->bateauEcAm->setVisible(false);
             }
             break;
         case 50 : ui->eauEcAm->setVisible(false); ui->eauEcMid->setVisible(true);
-            if (!(ui->bateauAm->isVisible() || ui->bateauAv->isVisible())) {
-                ui->bateauEcMid->setVisible(true);
+            if (ui->bateauAm->isVisible() || ui->bateauAv->isVisible()) {
+                ui->bateauEcMid->setVisible(false);
                 ui->bateauEcAm->setVisible(false);
                 ui->bateauEcAv->setVisible(false);
+            } else {
+                ui->bateauEcMid->setVisible(true);
             }
             break;
         case 0 : ; ui->eauEcAm->setVisible(false); ui->eauEcMid->setVisible(false);
-            if (!(ui->bateauAm->isVisible() || ui->bateauAv->isVisible())) {
+            if (ui->bateauAm->isVisible() || ui->bateauAv->isVisible()) {
                 ui->bateauEcMid->setVisible(false);
                 ui->bateauEcAm->setVisible(false);
+                ui->bateauEcAv->setVisible(false);
+            } else {
                 ui->bateauEcAv->setVisible(true);
             }
             break;
