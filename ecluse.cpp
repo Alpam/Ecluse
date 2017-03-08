@@ -287,7 +287,7 @@ void Ecluse::miseAlArret(){
         if((listePortes[i]->getState()==EN_OUVERTURE)||(listePortes[i]->getState()==EN_FERMETURE)){
             timer->stop();
             thread->terminate();
-            //delete timer;
+            delete timer;
             //delete thread;
             listePortes[i]->arret();
         }
@@ -364,7 +364,7 @@ void Ecluse::valideAction(int num, int act){
     }
     update();
     timer->stop();
-    //delete timer;
+    delete timer;
     //delete thread;
 }
 
@@ -381,7 +381,7 @@ void Ecluse::timerAmont(){
     thread->terminate();
     //delete thread;
     timer->stop();
-    //delete timer;
+    delete timer;
 }
 
 void Ecluse::timerAval(){
@@ -391,7 +391,7 @@ void Ecluse::timerAval(){
     thread->terminate();
     //delete thread;
     timer->stop();
-    //delete timer;
+    delete timer;
 }
 
 void Ecluse::slotUpdate(){

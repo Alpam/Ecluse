@@ -60,23 +60,23 @@ void Automatique::on_startAlarme_released()
 void Automatique::on_radBouAmAv_clicked()
 {
     ui->boutonStartPassage->setDisabled(false);
-    ecluse->pos = BAMONT;
 }
 
 void Automatique::on_radBouAvAm_clicked()
 {
     ui->boutonStartPassage->setDisabled(false);
-    ecluse->pos = BAVAL;
 }
 
 
 void Automatique::on_boutonStartPassage_released()
 {
+    ecluse->feuxSetRed();
     ui->radBouAmAv->setDisabled(true);
     ui->radBouAvAm->setDisabled(true);
     ecluse->fermeValve(AMONT);
     ecluse->fermeValve(AVAL);
     if (ui->radBouAmAv->isChecked()){
+        ecluse->pos = BAMONT;
         depart = AMONT;
         if(!(ecluse->isClose(AVAL))){
             ecluse->fermePorte(AVAL);
@@ -86,6 +86,7 @@ void Automatique::on_boutonStartPassage_released()
        connect(th,SIGNAL(finPorte()),this,SLOT(secondStart()));
     }
     if (ui->radBouAvAm->isChecked()){
+        ecluse->pos = BAVAL;
         depart = AVAL;
         if(!(ecluse->isClose(AMONT))){
             ecluse->fermePorte(AMONT);
@@ -217,12 +218,12 @@ void Automatique::on_boutonFinPassage_released()
     if(depart==AMONT){
         ecluse->pos = BAVAL;
         ecluse->switchFeu(AVAL);
-        ecluse->fermePorte(AVAL);
+        //ecluse->fermePorte(AVAL);
     }
     else{
         ecluse->pos = BAMONT;
         ecluse->switchFeu(AMONT);
-        ecluse->fermePorte(AMONT);
+        //ecluse->fermePorte(AMONT);
     }
     ecluse->feuxSetRed();
     ui->boutonStartPassage->setDisabled(true);
@@ -231,8 +232,8 @@ void Automatique::on_boutonFinPassage_released()
     ui->radBouAvAm->setAutoExclusive(false);
     ui->radBouAmAv->setChecked(false);
     ui->radBouAvAm->setChecked(false);
-    ui->radBouAmAv->setAutoExclusive(false);
-    ui->radBouAvAm->setAutoExclusive(false);
+    ui->radBouAmAv->setAutoExclusive(true);
+    ui->radBouAvAm->setAutoExclusive(true);
     ui->radBouAmAv->setDisabled(false);
     ui->radBouAvAm->setDisabled(false);
 }
