@@ -243,7 +243,7 @@ void Ecluse::fermeValve(int num){
         update();
         if(theau!=NULL){
             theau->terminate();
-            delete theau;
+            //delete theau;
             theau=NULL;
         }
         nbrVavleOp--;
