@@ -184,16 +184,16 @@ void Automatique::troisiemeProgression(){
     thn->terminate();
     if(depart==AMONT){
         ecluse->fermeValve(AVAL);
-        ecluse->ouvrePorte(AVAL);
         ecluse->pos = BECAVAL;
+        ecluse->ouvrePorte(AVAL);
         th = new ThreadAttPorte(ecluse->addPorteAval, OUVRE);
         th->start();
         connect(th,SIGNAL(finPorte()),this,SLOT(finProgression()));
     }
     else{
         ecluse->fermeValve(AMONT);
+        ecluse->pos = BECAMONT;
         ecluse->ouvrePorte(AMONT);
-        ecluse->pos = BAVAL;
         th = new ThreadAttPorte(ecluse->addPorteAmont, OUVRE);
         th->start();
         connect(th,SIGNAL(finPorte()),this,SLOT(finProgression()));
@@ -206,7 +206,6 @@ void Automatique::finProgression(){
         ecluse->switchFeu(AVAL);
     }
     else{
-        ecluse->pos = BECAMONT;
         ecluse->switchFeu(AMONT);
     }
     ui->boutonProgression->setDisabled(true);
