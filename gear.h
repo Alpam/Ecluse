@@ -26,9 +26,9 @@ public:
     virtual void declarePanne();
     virtual void resolvedPanne();
     virtual void arret();
+    int state;
 
 protected:
-    int state;
     bool alarm;
     bool panne;
     virtual void switchState(int newState);

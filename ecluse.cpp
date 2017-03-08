@@ -20,6 +20,8 @@ Ecluse::Ecluse(QWidget *parent) :
     nbrPorteOp = 0;
     niveauEcluse = 0;
     alarmeGenerale = OFF;
+    addPorteAmont = &listePortes[0]->state;
+    addPorteAval = &listePortes[1]->state;
     theau=NULL;
 }
 

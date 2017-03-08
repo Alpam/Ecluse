@@ -14,7 +14,7 @@ Automatique::Automatique(Ecluse *e) :
     ui->barreNiveau->setValue(0);
     ui->boutonFinPassage->setDisabled(true);
     ui->boutonStartPassage->setDisabled(true);
-    ui->boutonFinPassage->setDisabled(true);
+    ui->boutonProgression->setDisabled(true);
     tBP = new ThreadBarrePro(&e->niveauEcluse);
     tBP->start();
     connect(tBP, SIGNAL(fin()), this, SLOT(rien()));
@@ -57,15 +57,11 @@ void Automatique::on_boutonStartPassage_released()
 {
     feuAm = false;
     feuAv = false;
+    ecluse->fermeValve(AMONT);
+    ecluse->fermeValve(AVAL);
     if (ui->radBouAmAv->isChecked()){
-        depart=AMONT;
-        ThreadAttNiveau *thread = new ThreadAttNiveau(ecluse, 100, AMONT);
-        connect(thread, SIGNAL(fin()), this, SLOT(signalFinStart()));
     }
     if (ui->radBouAvAm->isChecked()){
-        depart=AVAL;
-        ThreadAttNiveau *thread = new ThreadAttNiveau(ecluse, 0, AVAL);
-        connect(thread, SIGNAL(fin()), this, SLOT(signalFinStart()));
     }
 }
 
