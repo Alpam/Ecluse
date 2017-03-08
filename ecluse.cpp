@@ -16,7 +16,7 @@ Ecluse::Ecluse(QWidget *parent) :
     listeValves[1]=new Valve;
     listeFeux[0]=new SignalLumineux;
     listeFeux[1]=new SignalLumineux;
-    ui->bateauAm->setVisible(false);
+    ui->bateauAm->setVisible(true);
     ui->bateauAv->setVisible(false);
     ui->bateauEcAm->setVisible(false);
     ui->bateauEcMid->setVisible(false);
@@ -76,12 +76,28 @@ void Ecluse::update()
         case FERME : etatValveAmont = "Fermee"; ui->valveAmOp->setVisible(false);ui->valveAm->setVisible(true);
             break;
     }
+
     switch (niveauEcluse) {
         case 100 : ui->eauEcAm->setVisible(true);
+            if (!(ui->bateauAm->isVisible() || ui->bateauAv->isVisible())) {
+                ui->bateauEcMid->setVisible(false);
+                ui->bateauEcAm->setVisible(true);
+                ui->bateauEcAv->setVisible(false);
+            }
             break;
         case 50 : ui->eauEcAm->setVisible(false); ui->eauEcMid->setVisible(true);
+            if (!(ui->bateauAm->isVisible() || ui->bateauAv->isVisible())) {
+                ui->bateauEcMid->setVisible(true);
+                ui->bateauEcAm->setVisible(false);
+                ui->bateauEcAv->setVisible(false);
+            }
             break;
         case 0 : ; ui->eauEcAm->setVisible(false); ui->eauEcMid->setVisible(false);
+            if (!(ui->bateauAm->isVisible() || ui->bateauAv->isVisible())) {
+                ui->bateauEcMid->setVisible(false);
+                ui->bateauEcAm->setVisible(false);
+                ui->bateauEcAv->setVisible(true);
+            }
             break;
     }
     if (listePortes[AVAL]->getPanne()) {
@@ -137,7 +153,6 @@ void Ecluse::update()
         ui->feuAmR->setVisible(false);
         ui->feuAmV->setVisible(true);
     }
-
 
     QString nE = QString::number(niveauEcluse);
     ui->etat->setText(alarmeG + "PORTE AMONT\n\tEtat : " + etatPorteAmont + "\n\t" + alarmePorteAmont + "\n\t" + pannePorteAmont
