@@ -15,12 +15,13 @@ class ThreadAttNiveau : public QThread
         void run();
 
     signals :
-        void fin(int num);
+        void fin();
 
 
     private :
         Ecluse *ecluse;
         int nivAtt;
+        int num;
 };
 
 #endif // THREADATTNIVEAU_H

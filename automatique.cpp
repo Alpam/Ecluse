@@ -19,6 +19,8 @@ Automatique::Automatique(Ecluse *e) :
     tBP->start();
     connect(tBP, SIGNAL(fin()), this, SLOT(rien()));
     connect(tBP, SIGNAL(timeToUpdate(int)), this, SLOT(slotUpDate(int)));
+    bool feuAm=false;
+    bool feuAv=false;
 }
 
 Automatique::~Automatique()
@@ -53,21 +55,18 @@ void Automatique::on_startAlarme_released()
 
 void Automatique::on_boutonStartPassage_released()
 {
+    feuAm = false;
+    feuAv = false;
     if (ui->radBouAmAv->isChecked()){
         depart=AMONT;
-        ThreadAttNiveau thread = new ThreadAttNiveau(ecluse, 100, );
-        connect(thread, SIGNAL(fin(int)), this, SLOT(signalFinStart(int)));
-        }
+        ThreadAttNiveau *thread = new ThreadAttNiveau(ecluse, 100, AMONT);
+        connect(thread, SIGNAL(fin()), this, SLOT(signalFinStart()));
     }
-   /* if (ui->radBouAvAm->isChecked()){
-        if (ecluse->niveauEcluse != 0) {
-            ecluse->ouvreValve(AVAL);
-            while(ecluse->niveauEcluse != 0) {
-                sleep(1);
-            }
-            ecluse->ouvrePorte(AVAL);
-        }
-    }*/
+    if (ui->radBouAvAm->isChecked()){
+        depart=AVAL;
+        ThreadAttNiveau *thread = new ThreadAttNiveau(ecluse, 0, AVAL);
+        connect(thread, SIGNAL(fin()), this, SLOT(signalFinStart()));
+    }
 }
 
 void Automatique::on_radBouAmAv_clicked()
@@ -75,7 +74,8 @@ void Automatique::on_radBouAmAv_clicked()
     ui->boutonStartPassage->setDisabled(false);
 }
 
-void Automatique::signalFinStart(int n){
+void Automatique::signalFinStart(){
+    depart==AMONT?feuAm=true:feuAv=true;
     ui->boutonStartPassage->setDisabled(true);
     ui->boutonProgression->setDisabled(false);
 }

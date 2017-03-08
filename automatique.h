@@ -32,13 +32,15 @@ private slots:
     void on_radBouAmAv_clicked();
 
 public slots :
-    void signalFinStart(int n);
+    void signalFinStart();
 
 private:
     Ui::Automatique *ui;
     ThreadBarrePro *tBP;
     ThreadAttNiveau *thread;
     int depart;
+    bool feuAm;
+    bool feuAv;
 
 };
 

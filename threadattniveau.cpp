@@ -27,5 +27,5 @@ void ThreadAttNiveau::run()
     while(!(ecluse->isOpen(num))){
         sleep(1);
     }
-    emit fin(num);
+    emit fin();
 }
