@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <iostream>
 
+#include <QInputDialog>
+
 Ecluse::Ecluse(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Ecluse)
@@ -173,7 +175,6 @@ void Ecluse::update()
 void Ecluse::ouvrePorte(int num){
     if(porteOuvrable(num)){
         if(!(listePortes[num]->ask_open())){
-            //ça plante
             return;
         }
         nbrPorteOp++;
@@ -194,7 +195,6 @@ void Ecluse::ouvrePorte(int num){
 
 void Ecluse::fermePorte(int num){
     if(!(listePortes[num]->ask_close())){
-        //ça plante
         return;
     }
     update();
@@ -219,7 +219,6 @@ void Ecluse::ouvreValve(int num){
         if(nbrVavleOp==2){
             if(theau!=NULL){
                 theau->terminate();
-               //delete theau;
                 theau=NULL;
             }
             niveauEcluse = 50;
@@ -232,9 +231,6 @@ void Ecluse::ouvreValve(int num){
             connect(theau, SIGNAL(timeToUpdate()), this, SLOT(slotUpdate()));
         }
     }
-    else{
-        //popupmarche pas
-    }
     }
 }
 
@@ -243,7 +239,6 @@ void Ecluse::fermeValve(int num){
         update();
         if(theau!=NULL){
             theau->terminate();
-            //delete theau;
             theau=NULL;
         }
         nbrVavleOp--;
@@ -255,9 +250,6 @@ void Ecluse::fermeValve(int num){
             connect(theau, SIGNAL(finish()), this,SLOT(finChangementNiveau()));
             connect(theau, SIGNAL(timeToUpdate()), this, SLOT(slotUpdate()));
         }
-    }
-    else{
-        //popupmarche pas
     }
 }
 
@@ -288,7 +280,6 @@ void Ecluse::miseAlArret(){
             timer->stop();
             thread->terminate();
             delete timer;
-            //delete thread;
             listePortes[i]->arret();
         }
     }
@@ -352,25 +343,21 @@ void Ecluse::valideAction(int num, int act){
     else{
         if(act==EN_OUVERTURE){
             if(!(listePortes[num]->open())){
-                //pop-up pas possible
             }
         }
         else if(act==EN_FERMETURE){
-            if(!(listePortes[num]->close())){
-                //pop-up pas possible
+            if((listePortes[num]->close())){
+                nbrPorteOp--;
             }
-            nbrPorteOp--;
         }
     }
     update();
     timer->stop();
     delete timer;
-    //delete thread;
 }
 
 void Ecluse::finChangementNiveau(){
     update();
-    //delete theau;
     theau=NULL;
 }
 
@@ -379,7 +366,6 @@ void Ecluse::timerAmont(){
     listePortes[AMONT]->arret();
     update();
     thread->terminate();
-    //delete thread;
     timer->stop();
     delete timer;
 }
@@ -389,7 +375,6 @@ void Ecluse::timerAval(){
     listePortes[AVAL]->arret();
     update();
     thread->terminate();
-    //delete thread;
     timer->stop();
     delete timer;
 }
@@ -412,24 +397,29 @@ bool Ecluse::isClose(int num){
 
 void Ecluse::on_pannePorteAm_released()
 {
+    miseAlArret();
     listePortes[AMONT]->declarePanne();
+
     update();
 }
 
 void Ecluse::on_pannePorteAv_released()
 {
+    miseAlArret();
     listePortes[AVAL]->declarePanne();
     update();
 }
 
 void Ecluse::on_panneValveAv_released()
 {
+    fermeValve(AVAL);
     listeValves[AVAL]->declarePanne();
     update();
 }
 
 void Ecluse::on_panneValveAm_released()
 {
+    fermeValve(AMONT);
     listeValves[AMONT]->declarePanne();
     update();
 }

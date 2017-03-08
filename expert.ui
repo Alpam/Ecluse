@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>697</width>
-    <height>507</height>
+    <width>679</width>
+    <height>330</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,10 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>20</y>
+     <x>10</x>
+     <y>10</y>
      <width>659</width>
-     <height>441</height>
+     <height>311</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
@@ -50,6 +50,19 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+    </item>
+    <item row="6" column="5">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
     </item>
     <item row="5" column="4" rowspan="3">
      <layout class="QGridLayout" name="gridLayout_2">
@@ -101,19 +114,6 @@
       </item>
      </layout>
     </item>
-    <item row="6" column="5">
-     <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
     <item row="6" column="3">
      <spacer name="horizontalSpacer">
       <property name="orientation">
@@ -137,7 +137,14 @@
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QGraphicsView" name="feuAmont"/>
+       <widget class="QGraphicsView" name="feuAmont">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>90</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -263,7 +270,14 @@
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QGraphicsView" name="feuAval"/>
+       <widget class="QGraphicsView" name="feuAval">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>90</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
