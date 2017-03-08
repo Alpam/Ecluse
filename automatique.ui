@@ -28,7 +28,7 @@
       <item row="0" column="1">
        <widget class="QPushButton" name="startAlarme">
         <property name="text">
-         <string>Alarme</string>
+         <string>Arret d'urgence</string>
         </property>
        </widget>
       </item>
@@ -152,6 +152,9 @@
          <widget class="QLabel" name="label_10">
           <property name="text">
            <string>Niveau de l'écluse</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>

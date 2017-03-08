@@ -46,6 +46,9 @@
       <property name="text">
        <string>Valve Aval</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </item>
     <item row="5" column="4" rowspan="3">
@@ -81,6 +84,9 @@
          <widget class="QLabel" name="label_10">
           <property name="text">
            <string>Niveau de l'écluse</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignBottom|Qt::AlignHCenter</set>
           </property>
          </widget>
         </item>
@@ -222,6 +228,9 @@
       <property name="text">
        <string>Porte Amont</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </item>
     <item row="6" column="6">
@@ -229,12 +238,18 @@
       <property name="text">
        <string>Valve Amont</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </item>
     <item row="1" column="1">
      <widget class="QLabel" name="label_2">
       <property name="text">
        <string>Porte Aval</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
