@@ -5,7 +5,7 @@
 #include <QTimer>
 #include <QWidget>
 #include "threadniveaueau.h"
-#include "mythread.h"
+#include "threadporte.h"
 #include "porte.h"
 #include "valve.h"
 #include "signallumineux.h"
@@ -61,7 +61,7 @@ private:
     SignalLumineux *listeFeux[2];
     void setAlarm(bool a);
     QTimer *timer;
-    MyThread *thread;
+    ThreadPorte *thread;
     ThreadNiveauEau *theau;
 
 public slots :
