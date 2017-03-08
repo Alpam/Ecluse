@@ -215,6 +215,7 @@ void Automatique::finProgression(){
 void Automatique::on_boutonFinPassage_released()
 {
     if(depart==AMONT){
+        ecluse->pos = BAVAL;
         ecluse->switchFeu(AVAL);
         ecluse->fermePorte(AVAL);
     }
