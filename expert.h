@@ -59,6 +59,8 @@ private slots:
 private:
     Ui::Expert *ui;
     ThreadBarrePro *tBP;
+    bool feuAm;
+    bool feuAv;
 
 };
 

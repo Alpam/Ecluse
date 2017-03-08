@@ -44,3 +44,5 @@ FORMS    += \
     expert.ui \
     mainwindow.ui \
     ecluse.ui
+
+RESOURCES +=
