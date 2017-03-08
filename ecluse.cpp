@@ -16,6 +16,11 @@ Ecluse::Ecluse(QWidget *parent) :
     listeValves[1]=new Valve;
     listeFeux[0]=new SignalLumineux;
     listeFeux[1]=new SignalLumineux;
+    ui->bateauAm->setVisible(false);
+    ui->bateauAv->setVisible(false);
+    ui->bateauEcAm->setVisible(false);
+    ui->bateauEcMid->setVisible(false);
+    ui->bateauEcAv->setVisible(false);
     nbrVavleOp = 0;
     nbrPorteOp = 0;
     niveauEcluse = 0;
@@ -36,39 +41,47 @@ void Ecluse::update()
             alarmePorteAval, alarmePorteAmont, alarmeValveAval, alarmeValveAmont,
             pannePorteAval, pannePorteAmont, alarmeG, panneValveAval, panneValveAmont;
     switch (listePortes[AMONT]->getState()) {
-        case OUVRE : etatPorteAmont = "Ouverte";
+        case OUVRE : etatPorteAmont = "Ouverte"; ui->porteAmFct->setVisible(false);
             break;
-        case EN_OUVERTURE : etatPorteAmont = "Ouverture";
+        case EN_OUVERTURE : etatPorteAmont = "Ouverture"; ui->porteAmFct->setVisible(true);ui->porteAm->setVisible(false);
             break;
-        case FERME : etatPorteAmont = "Fermee";
+        case FERME : etatPorteAmont = "Fermee"; ui->porteAmFct->setVisible(false);ui->porteAm->setVisible(true);
             break;
-        case EN_FERMETURE : etatPorteAmont = "Fermeture";
+        case EN_FERMETURE : etatPorteAmont = "Fermeture"; ui->porteAmFct->setVisible(true);ui->porteAm->setVisible(false);
             break;
         case EN_ARRET : etatPorteAmont = "Arretee";
             break;
     }
     switch (listePortes[AVAL]->getState()) {
-        case OUVRE : etatPorteAval = "Ouverte";
+        case OUVRE : etatPorteAval = "Ouverte"; ui->porteAvFct->setVisible(false);
             break;
-        case EN_OUVERTURE : etatPorteAval = "Ouverture";
+        case EN_OUVERTURE : etatPorteAval = "Ouverture"; ui->porteAvFct->setVisible(true);ui->porteAv->setVisible(false);
             break;
-        case FERME : etatPorteAval = "Fermee";
+        case FERME : etatPorteAval = "Fermee"; ui->porteAvFct->setVisible(false);ui->porteAv->setVisible(true);
             break;
-        case EN_FERMETURE : etatPorteAval = "Fermeture";
+        case EN_FERMETURE : etatPorteAval = "Fermeture"; ui->porteAvFct->setVisible(true);ui->porteAv->setVisible(false);
             break;
         case EN_ARRET : etatPorteAval = "Arretee";
             break;
     }
     switch (listeValves[AVAL]->getState()) {
-        case OUVRE : etatValveAval = "Ouverte";
+        case OUVRE : etatValveAval = "Ouverte"; ui->valveAvOp->setVisible(true);ui->valveAv->setVisible(false);
             break;
-        case FERME : etatValveAval = "Fermee";
+        case FERME : etatValveAval = "Fermee"; ui->valveAvOp->setVisible(false);ui->valveAv->setVisible(true);
             break;
     }
     switch (listeValves[AMONT]->getState()) {
-        case OUVRE : etatValveAmont = "Ouverte";
+        case OUVRE : etatValveAmont = "Ouverte"; ui->valveAmOp->setVisible(true);ui->valveAm->setVisible(false);
             break;
-        case FERME : etatValveAmont = "Fermee";
+        case FERME : etatValveAmont = "Fermee"; ui->valveAmOp->setVisible(false);ui->valveAm->setVisible(true);
+            break;
+    }
+    switch (niveauEcluse) {
+        case 100 : ui->eauEcAm->setVisible(true);
+            break;
+        case 50 : ui->eauEcAm->setVisible(false); ui->eauEcMid->setVisible(true);
+            break;
+        case 0 : ; ui->eauEcAm->setVisible(false); ui->eauEcMid->setVisible(false);
             break;
     }
     if (listePortes[AVAL]->getPanne())
@@ -105,6 +118,21 @@ void Ecluse::update()
         alarmeValveAmont = "Pas en Alarme";
     if (alarmeGenerale)
         alarmeG = "\tECLUSE EN ALARME\n";
+    if (listeFeux[AVAL]->getColor() == 'R') {
+        ui->feuAvR->setVisible(true);
+        ui->feuAvV->setVisible(false);
+    } else {
+        ui->feuAvR->setVisible(false);
+        ui->feuAvV->setVisible(true);
+    }
+    if (listeFeux[AMONT]->getColor() == 'R') {
+        ui->feuAmR->setVisible(true);
+        ui->feuAmV->setVisible(false);
+    } else {
+        ui->feuAmR->setVisible(false);
+        ui->feuAmV->setVisible(true);
+    }
+
 
     QString nE = QString::number(niveauEcluse);
     ui->etat->setText(alarmeG + "PORTE AMONT\n\tEtat : " + etatPorteAmont + "\n\t" + alarmePorteAmont + "\n\t" + pannePorteAmont
@@ -165,7 +193,7 @@ void Ecluse::ouvreValve(int num){
         if(nbrVavleOp==2){
             if(theau!=NULL){
                 theau->terminate();
-                delete theau;
+               // delete theau;
                 theau=NULL;
             }
             niveauEcluse = 50;
