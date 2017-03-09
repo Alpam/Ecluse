@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:
+ *       Filename: mainwindow.h
  *
- *    Description:
+ *    Description: fichier header de mainwindow
  *
  *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
  *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
@@ -27,18 +27,17 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-public:
-    MainWindow(Ecluse *e);
-    ~MainWindow();
-    Ecluse *ecluse;
+    public:
+        MainWindow(Ecluse *e);
+        ~MainWindow();
+        Ecluse *ecluse;
 
-private slots:
-    void on_boutonModeAuto_released();
+    private slots:
+        void on_boutonModeAuto_released();
+        void on_boutonModeExp_released();
 
-    void on_boutonModeExp_released();
-
-private:
-    Ui::MainWindow *ui;
+    private:
+        Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H

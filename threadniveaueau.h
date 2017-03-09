@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:
+ *       Filename: threadniveaueau.h
  *
- *    Description:
+ *    Description: fichier header de threadniveaueau
  *
  *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
  *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
@@ -17,8 +17,7 @@
 #include <QApplication>
 #include <QThread>
 
-class ThreadNiveauEau : public QThread
-{
+class ThreadNiveauEau : public QThread{
     Q_OBJECT
     public:
         ThreadNiveauEau(int *ne, int n);

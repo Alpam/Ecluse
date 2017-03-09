@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:
+ *       Filename: threadbarrepro.h
  *
- *    Description:
+ *    Description: fichier header de threadbarrepro
  *
  *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
  *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr

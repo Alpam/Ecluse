@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:
+ *       Filename: threadniveaueau.cpp
  *
- *    Description:
+ *    Description: ce thread change le niveau d'eau
  *
  *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
  *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
@@ -14,12 +14,24 @@
 #include "threadniveaueau.h"
 #include <unistd.h>
 
+/**
+ * @brief ThreadNiveauEau::ThreadNiveauEau
+ *        constructeur
+ * @param ne
+ *        adresse du niveau de l'eau
+ * @param n
+ *        la valve ouverte
+ */
 ThreadNiveauEau::ThreadNiveauEau(int *ne, int n)
 {
     num = n;
     niveauEau = ne;
 }
 
+/**
+ * @brief ThreadNiveauEau::run
+ *        change le niveau de l'eau et met la représentaion de l'écluse à jour
+ */
 void ThreadNiveauEau::run()
 {
     if(!(num)){//valve amont est ouverte

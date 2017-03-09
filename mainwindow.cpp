@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:
+ *       Filename: mainwindow.cpp
  *
- *    Description:
+ *    Description: fenetre avec donnant le choix entre les deux modes
  *
  *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
  *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
@@ -16,6 +16,12 @@
 
 #include <QInputDialog>
 
+/**
+ * @brief MainWindow::MainWindow
+ *        constructeur
+ * @param e
+ *        représentation de l'écluse
+ */
 MainWindow::MainWindow(Ecluse *e) :
     QMainWindow(0),
     ui(new Ui::MainWindow)
@@ -24,11 +30,19 @@ MainWindow::MainWindow(Ecluse *e) :
     ecluse = e;
 }
 
+/**
+ * @brief MainWindow::~MainWindow
+ *        destructeur
+ */
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+/**
+ * @brief MainWindow::on_boutonModeExp_released
+ *        permet de passer au mode expert
+ */
 void MainWindow::on_boutonModeExp_released()
 {
     QString txt = QInputDialog::getText(this,"Password ?","Mot de passe ?",QLineEdit::Password);
@@ -39,6 +53,10 @@ void MainWindow::on_boutonModeExp_released()
         }
 }
 
+/**
+ * @brief MainWindow::on_boutonModeAuto_released
+ *        permet de passer au mode automatique
+ */
 void MainWindow::on_boutonModeAuto_released()
 {
     Automatique *w = new Automatique(ecluse);

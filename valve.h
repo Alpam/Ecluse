@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:
+ *       Filename: valve.h
  *
- *    Description:
+ *    Description: fichier header de valve
  *
  *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
  *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
@@ -17,11 +17,9 @@
 #include "gear.h"
 
 
-class Valve : public Gear
-{
-public:
-    Valve();
-    void sendSignal(int signal, int num);
+class Valve : public Gear{
+    public:
+        Valve();
 };
 
 #endif // VALVE_H

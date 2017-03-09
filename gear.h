@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:
+ *       Filename: gear.h
  *
- *    Description:
+ *    Description: fichier header de gear
  *
  *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
  *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
@@ -24,29 +24,28 @@
 #define ON true
 #define OFF false
 
-class Gear // classe abstraite
-{
-public:
-    Gear();
-    virtual ~Gear();
-    virtual bool open();
-    virtual bool close();
-    virtual int getState();
-    virtual bool getAlarm();
-    virtual bool getPanne();
-    virtual void putAlarm();
-    virtual void disableAlarm();
-    virtual void declarePanne();
-    virtual void resolvedPanne();
-    virtual void arret();
-    int state;
+class Gear{// classe abstraite
+    public:
+        Gear();
+        virtual ~Gear();
+        virtual bool open();
+        virtual bool close();
+        virtual int getState();
+        virtual bool getAlarm();
+        virtual bool getPanne();
+        virtual void putAlarm();
+        virtual void disableAlarm();
+        virtual void declarePanne();
+        virtual void resolvedPanne();
+        virtual void arret();
+        int state;
 
-protected:
-    bool alarm;
-    bool panne;
-    virtual void switchState(int newState);
-    virtual void setAlarm(bool a);
-    virtual void setPanne(bool a);
+    protected:
+        bool alarm;
+        bool panne;
+        virtual void switchState(int newState);
+        virtual void setAlarm(bool a);
+        virtual void setPanne(bool a);
 };
 
 

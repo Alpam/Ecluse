@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:
+ *       Filename: automatique.cpp
  *
- *    Description:
+ *    Description: classe représentant la fenêtre mode automatique
  *
  *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
  *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
@@ -17,7 +17,12 @@
 
 #include <QInputDialog>
 
-
+/**
+ * @brief Automatique::Automatique
+ *        constructeur de la classe
+ * @param e
+ *        la représentation de l'ecluse
+ */
 Automatique::Automatique(Ecluse *e) :
     QWidget(0),
     ui(new Ui::Automatique)
@@ -36,17 +41,25 @@ Automatique::Automatique(Ecluse *e) :
 
 }
 
+/**
+ * @brief Automatique::~Automatique
+ *        destructeur de la classe
+ */
 Automatique::~Automatique()
 {
     th->terminate();
-    //delete th;
+    th->quit();
     thn->terminate();
-    //delete thn;
+    th->quit();
     tBP->terminate();
-    //delete tBP;
+    th->quit();
     delete ui;
 }
 
+/**
+ * @brief Automatique::on_boutonModeExp_released
+ *        bouton permettant de passer en mode expert
+ */
 void Automatique::on_boutonModeExp_released()
 {
     QString txt = QInputDialog::getText(this,"Password ?","Mot de passe ?",QLineEdit::Password);
@@ -57,31 +70,59 @@ void Automatique::on_boutonModeExp_released()
         }
 }
 
+/**
+ * @brief Automatique::rien
+ *        ne fait rien, sert pour la déclaration du thread gérant l'afficahge du niveau de l'eau
+ *        cette fonction à pour vocation de n'être jamais déclenchée.
+ */
 void Automatique::rien(){
     //ne fais rien
 }
 
+/**
+ * @brief Automatique::slotUpDate
+ *        update l'afficahge du niveau de l'eau
+ * @param nE
+ *        valeur en % du niveau de l'eau
+ */
 void Automatique::slotUpDate(int nE){
     ui->barreNiveau->setValue(nE);
 }
 
+/**
+ * @brief Automatique::on_startAlarme_released
+ *        délcenche l'alarme et met les feux au rouge
+ */
 void Automatique::on_startAlarme_released()
 {
     ecluse->putAlarm();
     ecluse->feuxSetRed();
 }
 
+/**
+ * @brief Automatique::on_radBouAmAv_clicked
+ *        permet de déclencher la séquence automatique
+ *        en rendant accessible le bouton start
+ */
 void Automatique::on_radBouAmAv_clicked()
 {
     ui->boutonStartPassage->setDisabled(false);
 }
 
+/**
+ * @brief Automatique::on_radBouAvAm_clicked
+ *        permet de déclencher la séquence automatique
+ *        en rendant accessible le bouton start
+ */
 void Automatique::on_radBouAvAm_clicked()
 {
     ui->boutonStartPassage->setDisabled(false);
 }
 
-
+/**
+ * @brief Automatique::on_boutonStartPassage_released
+ *        déclenche la séquence après click sur le bouton start
+ */
 void Automatique::on_boutonStartPassage_released()
 {
     ecluse->feuxSetRed();
@@ -89,6 +130,8 @@ void Automatique::on_boutonStartPassage_released()
     ui->radBouAvAm->setDisabled(true);
     ecluse->fermeValve(AMONT);
     ecluse->fermeValve(AVAL);
+    //si la porte à l'opposé est ouverte on la ferme
+    //un thread est lancé pour attendre la fin de la fermeture
     if (ui->radBouAmAv->isChecked()){
         ecluse->pos = BAMONT;
         depart = AMONT;
@@ -111,8 +154,15 @@ void Automatique::on_boutonStartPassage_released()
     }
 }
 
+/**
+ * @brief Automatique::secondStart
+ *        seconde partie de la séquence
+ */
 void Automatique::secondStart(){
     th->terminate();
+    th->quit();
+    //on vérifie que le niveau de l'eau soit bon sinon on ouvre la valve voulut
+    //un thread est lancé pour attendre le changement de niveau
     if(depart==AMONT){
         ecluse->ouvreValve(AMONT);
         thn = new ThreadAttNiveau(&ecluse->niveauEcluse,100);
@@ -127,8 +177,15 @@ void Automatique::secondStart(){
     }
 }
 
+/**
+ * @brief Automatique::troisiemeStart
+ *        troisième partie de la séquence
+ */
 void Automatique::troisiemeStart(){
     thn->terminate();
+    thn->quit();
+    //on ouvre la porte
+    //un thread est lancé pour attendre la fin de l'ouverture
     if(depart==AMONT){
         ecluse->fermeValve(AMONT);
         ecluse->ouvrePorte(AMONT);
@@ -144,7 +201,10 @@ void Automatique::troisiemeStart(){
         connect(th,SIGNAL(finPorte()),this,SLOT(finStart()));
     }
 }
-
+/**
+ * @brief Automatique::finStart
+ *        quatrieme partie de la séquence
+ */
 void Automatique::finStart(){
     if(depart==AMONT){
         ecluse->switchFeu(AMONT);
@@ -160,8 +220,14 @@ void Automatique::finStart(){
     thn->terminate();
 }
 
+/**
+ * @brief Automatique::on_boutonProgression_released
+ *        cinquième partie de la séquence se délchence après click sur le bouton progression
+ */
 void Automatique::on_boutonProgression_released()
 {
+    //fermeture de la porte
+    //un thread est lancer pour attendre la fin de la fermeture
     if(depart==AMONT){
         ecluse->switchFeu(AMONT);
         ecluse->fermePorte(AMONT);
@@ -175,12 +241,18 @@ void Automatique::on_boutonProgression_released()
         th = new ThreadAttPorte(ecluse->addPorteAval, FERME);
         th->start();
         connect(th,SIGNAL(finPorte()),this,SLOT(secondProgression()));
-
     }
 }
 
+/**
+ * @brief Automatique::secondProgression
+ *        sixieme partie de la séquence
+ */
 void Automatique::secondProgression(){
     th->terminate();
+    th->quit();
+    //ouverture de l'éclsue
+    //un thread est lancé pour attendre la fin du changement du niveau de l'eau
     if(depart==AMONT){
         ecluse->ouvreValve(AVAL);
         thn = new ThreadAttNiveau(&ecluse->niveauEcluse,0);
@@ -195,8 +267,15 @@ void Automatique::secondProgression(){
     }
 }
 
+/**
+ * @brief Automatique::troisiemeProgression
+ *        septième partie de la séquence
+ */
 void Automatique::troisiemeProgression(){
     thn->terminate();
+    thn->quit();
+    //fermeture de l'ecluse et ouverture porte
+    //un thread est lancé pour attendre la fin de l'ouverture
     if(depart==AMONT){
         ecluse->fermeValve(AVAL);
         ecluse->pos = BECAVAL;
@@ -215,6 +294,10 @@ void Automatique::troisiemeProgression(){
     }
 }
 
+/**
+ * @brief Automatique::finProgression
+ *        huitième partie de la séquence
+ */
 void Automatique::finProgression(){
     th->terminate();
     th->quit();
@@ -228,8 +311,14 @@ void Automatique::finProgression(){
     ui->boutonFinPassage->setDisabled(false);
 }
 
+/**
+ * @brief Automatique::on_boutonFinPassage_released
+ *        neuvième partie de la séquence déclenché après click sur le bouton fin
+ */
 void Automatique::on_boutonFinPassage_released()
 {
+    //la porte précédemment ouverte dans la partie précédente est fermée
+    //un thread est lancé pour attendre la fermeture
     if(depart==AMONT){
         ecluse->pos = BAVAL;
         ecluse->switchFeu(AVAL);
@@ -248,6 +337,11 @@ void Automatique::on_boutonFinPassage_released()
     }
 }
 
+/**
+ * @brief Automatique::finTerminaison
+ *        dixième et dernière étape de la séquence automatique
+ *        elle remet l'écluse dans un état initiale ainsi que l'IHM
+ */
 void Automatique::finTerminaison(){
     th->terminate();
     th->quit();

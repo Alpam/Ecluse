@@ -1,9 +1,11 @@
 /*
  * =====================================================================================
  *
- *       Filename:
+ *       Filename: ecluse.cpp
  *
- *    Description:
+ *    Description: la classe ecluse manage la représentation d'une écluse à tout moment
+ *                 et répond au interraction avec l'IHM.
+ *                 Elle est également utilisée pour la simulation.
  *
  *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
  *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
@@ -20,6 +22,11 @@
 
 #include <QInputDialog>
 
+/**
+ * @brief Ecluse::Ecluse
+ *        constructeur de la classe
+ * @param parent
+ */
 Ecluse::Ecluse(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Ecluse)
@@ -44,11 +51,19 @@ Ecluse::Ecluse(QWidget *parent) :
     theau=NULL;
 }
 
+/**
+ * @brief Ecluse::~Ecluse
+ *        destructeur de la classe
+ */
 Ecluse::~Ecluse()
 {
     delete ui;
 }
 
+/**
+ * @brief Ecluse::update
+ *        Update l'affichage des états de l'écluse
+ */
 void Ecluse::update()
 {
     QString etatPorteAval, etatPorteAmont, etatValveAval, etatValveAmont,
@@ -185,6 +200,12 @@ void Ecluse::update()
                       + "\n\nNIVEAU EAU\t" + nE);
 }
 
+/**
+ * @brief Ecluse::ouvrePorte
+ *        Provoque l'ouverture d'une porte
+ * @param num
+ *        définit si il s'agit de l'aval ou de l'amont
+ */
 void Ecluse::ouvrePorte(int num){
     if(porteOuvrable(num)){
         if(!(listePortes[num]->ask_open())){
@@ -195,6 +216,8 @@ void Ecluse::ouvrePorte(int num){
         thread = new ThreadPorte(num,EN_OUVERTURE);
         thread->start();
         timer = new QTimer();
+        //si le timer se termine avant le thread, il
+        //met la porte en arret et en panne puis déclenche une alarme
         if(num==AMONT){
             connect(timer, SIGNAL(timeout()), this, SLOT(timerAmont()));
         }
@@ -206,6 +229,12 @@ void Ecluse::ouvrePorte(int num){
     }
 }
 
+/**
+ * @brief Ecluse::fermePorte
+ *        Provoque la fermeture d'une porte
+ * @param num
+ *        définit si il s'agit de l'aval ou l'amont
+ */
 void Ecluse::fermePorte(int num){
     if(!(listePortes[num]->ask_close())){
         return;
@@ -214,6 +243,8 @@ void Ecluse::fermePorte(int num){
     thread = new ThreadPorte(num,EN_FERMETURE);
     thread->start();
     timer = new QTimer();
+    //si le timer se termine avant le thread, il
+    //met la porte en arret et en panne puis déclenche une alarme
     if(num==AMONT){
         connect(timer, SIGNAL(timeout()), this, SLOT(timerAmont()));
     }
@@ -224,12 +255,20 @@ void Ecluse::fermePorte(int num){
     timer->start(12000);
 }
 
+/**
+ * @brief Ecluse::ouvreValve
+ *        déclenche l'ouvertue d'une valve ainsi que le changement du niveau de l'eau
+ * @param num
+ *        définit si il s'agit de l'aval ou l'amont
+ */
 void Ecluse::ouvreValve(int num){
     if(valveOuvrable()){
     if(listeValves[num]->open()){
         nbrVavleOp++;
         update();
         if(nbrVavleOp==2){
+            //si les 2 valves sont ouvertes et qu'un thread modifiant le niveau
+            //de l'eau est ouvert il est fermé
             if(theau!=NULL){
                 theau->terminate();
                 theau->quit();
@@ -248,6 +287,12 @@ void Ecluse::ouvreValve(int num){
     }
 }
 
+/**
+ * @brief Ecluse::fermeValve
+ *        déclenche la fermeture d'une valve ainsi que le changement du niveau de l'eau
+ * @param num
+ *        définit si il s'agit de l'aval ou l'amont
+ */
 void Ecluse::fermeValve(int num){
     if(listeValves[num]->close()){
         update();
@@ -258,6 +303,7 @@ void Ecluse::fermeValve(int num){
         }
         nbrVavleOp--;
         if(nbrVavleOp==1){
+            //si il ne reste qu'une valve d'ouverte, le niveau de l'eau est mofifiée
             int tmp;
             num==AMONT?tmp=AVAL:tmp=AMONT;
             theau = new ThreadNiveauEau(&niveauEcluse, tmp);
@@ -268,6 +314,11 @@ void Ecluse::fermeValve(int num){
     }
 }
 
+/**
+ * @brief Ecluse::putAlarm
+ *        déclenche une alarme sur toute l'écluse,
+ *        ferme les valves et met en arret les portes
+ */
 void Ecluse::putAlarm() {
     listePortes[AVAL]->putAlarm();
     listePortes[AMONT]->putAlarm();
@@ -280,6 +331,10 @@ void Ecluse::putAlarm() {
     update();
 }
 
+/**
+ * @brief Ecluse::disableAlarm
+ *        arrete l'alarme
+ */
 void Ecluse::disableAlarm(){
     listePortes[AVAL]->disableAlarm();
     listePortes[AMONT]->disableAlarm();
@@ -289,6 +344,10 @@ void Ecluse::disableAlarm(){
     update();
 }
 
+/**
+ * @brief Ecluse::miseAlArret
+ *        si une porte est en ouverture ou fermeture elle mise en arret
+ */
 void Ecluse::miseAlArret(){
     for(int i=0;i<2;i++){
         if((listePortes[i]->getState()==EN_OUVERTURE)||(listePortes[i]->getState()==EN_FERMETURE)){
@@ -301,14 +360,34 @@ void Ecluse::miseAlArret(){
     }
 }
 
+/**
+ * @brief Ecluse::resolvePanneP
+ *        stop la panne d'une porte
+ * @param num
+ *        définit si il s'agit de l'amont ou de l'aval
+ */
 void Ecluse::resolvePanneP(int num){
     listePortes[num]->resolvedPanne();
 }
 
+/**
+ * @brief Ecluse::resolvePanneV
+ *        stop la panne d'une valve
+ * @param num
+ *        définit si il s'agit de l'amont ou de l'aval
+ */
 void Ecluse::resolvePanneV(int num){
     listeValves[num]->resolvedPanne();
 }
 
+/**
+ * @brief Ecluse::porteOuvrable
+ *        déinit si une porte est ouvrable
+ * @param num
+ *        définit si il s'agit de l'amont ou de l'aval
+ * @return
+ *        si vrai ou faux
+ */
 bool Ecluse::porteOuvrable(int num){
     if((nbrPorteOp+nbrVavleOp)==0){
         if(num==AMONT){
@@ -323,6 +402,12 @@ bool Ecluse::porteOuvrable(int num){
     }
 }
 
+/**
+ * @brief Ecluse::valveOuvrable
+ *        définit si une valve est ouvrable
+ * @return
+ *        si vrai ou faux
+ */
 bool Ecluse::valveOuvrable(){
     if((nbrPorteOp)==0){
         return true;
@@ -332,15 +417,31 @@ bool Ecluse::valveOuvrable(){
     }
 }
 
+/**
+ * @brief Ecluse::getAlarm
+ *        retourne l'état de l'alarme
+ * @return
+ *        si vrai ou faux
+ */
 bool Ecluse::getAlarm(){
     return alarmeGenerale;
 }
 
+/**
+ * @brief Ecluse::feuxSetRed
+ *        met les 2 feux au rouge
+ */
 void Ecluse::feuxSetRed(){
     listeFeux[AVAL]->setRed();
     listeFeux[AMONT]->setRed();
 }
 
+/**
+ * @brief Ecluse::switchFeu
+ *        change un feu de couleur
+ * @param num
+ *        définit si il s'agit de l'amont ou de l'aval
+ */
 void Ecluse::switchFeu(int num){
     if(listeFeux[num]->getColor()=='R'){
         listeFeux[num]->setGreen();
@@ -351,6 +452,14 @@ void Ecluse::switchFeu(int num){
     update();
 }
 
+/**
+ * @brief Ecluse::valideAction
+ *        s'active quand le thread gérant la porte se termine
+ * @param num
+ *        définit si il s'agit de l'amont ou de l'aval
+ * @param act
+ *        l'action à effectuer
+ */
 void Ecluse::valideAction(int num, int act){
     if(listePortes[num]->getPanne()){
         listePortes[num]->putAlarm();
@@ -372,11 +481,20 @@ void Ecluse::valideAction(int num, int act){
     delete timer;
 }
 
+/**
+ * @brief Ecluse::finChangementNiveau
+ *        met à jour l'affichage et ferme le thread
+ */
 void Ecluse::finChangementNiveau(){
     update();
+    theau->quit();
     theau=NULL;
 }
 
+/**
+ * @brief Ecluse::timerAmont
+ *        gère le timer pour la porte en amont
+ */
 void Ecluse::timerAmont(){
     listePortes[AMONT]->declarePanne();
     listePortes[AMONT]->arret();
@@ -387,6 +505,10 @@ void Ecluse::timerAmont(){
     delete timer;
 }
 
+/**
+ * @brief Ecluse::timerAval
+ *        gère le timer pour la porte en aval
+ */
 void Ecluse::timerAval(){
     listePortes[AVAL]->declarePanne();
     listePortes[AVAL]->arret();
@@ -401,18 +523,45 @@ void Ecluse::slotUpdate(){
     update();
 }
 
+/**
+ * @brief Ecluse::setAlarm
+ *        set l'état de l'alarme
+ * @param a
+ *        booléen représentant l'état
+ */
 void Ecluse::setAlarm(bool a) {
     alarmeGenerale = a;
 }
 
+/**
+ * @brief Ecluse::isOpen
+ *        renvoie si une porte est ouverte
+ * @param num
+ *        définit si il s'agit de l'amont ou de l'aval
+ * @return
+ *        vrai ou faux
+ */
 bool Ecluse::isOpen(int num){
     return listePortes[num]->getState()==OUVRE;
 }
 
+/**
+ * @brief Ecluse::isClose
+ *        renvoie si une porte est fermée
+ * @param num
+ *        définit si il s'agit de l'amont ou de l'aval
+ * @return
+ *        vrai ou faux
+ */
 bool Ecluse::isClose(int num){
     return listePortes[num]->getState()==FERME;
 }
 
+/**
+ * @brief Ecluse::on_pannePorteAm_released
+ *        met la porte amont à l'arrêt et en panne
+ *        la déclaration de panne déclenche une alarme
+ */
 void Ecluse::on_pannePorteAm_released()
 {
     miseAlArret();
@@ -421,6 +570,11 @@ void Ecluse::on_pannePorteAm_released()
     update();
 }
 
+/**
+ * @brief Ecluse::on_pannePorteAv_released
+ *        met la porte aval à l'arrêt et en panne
+ *        la déclaration de panne déclenche une alarme
+ */
 void Ecluse::on_pannePorteAv_released()
 {
     miseAlArret();
@@ -428,6 +582,13 @@ void Ecluse::on_pannePorteAv_released()
     update();
 }
 
+/**
+ * @brief Ecluse::on_panneValveAv_released
+ *        met la valve aval en panne,
+ *        la déclaration de panne déclenche une alarme
+ *        la valve est alors fermée (on considère qu'il y a un
+ *        système de sécurité fermant la valve)
+ */
 void Ecluse::on_panneValveAv_released()
 {
     fermeValve(AVAL);
@@ -435,6 +596,13 @@ void Ecluse::on_panneValveAv_released()
     update();
 }
 
+/**
+ * @brief Ecluse::on_panneValveAm_released
+ *        met la valve amont en panne,
+ *        la déclaration de panne déclenche une alarme
+ *        la valve est alors fermée (on considère qu'il y a un
+ *        système de sécurité fermant la valve)
+ */
 void Ecluse::on_panneValveAm_released()
 {
     fermeValve(AMONT);

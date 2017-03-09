@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:
+ *       Filename: threadattporte.h
  *
- *    Description:
+ *    Description: fichier header de threadattporte
  *
  *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
  *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
@@ -17,8 +17,7 @@
 #include <QApplication>
 #include <QThread>
 
-class ThreadAttPorte : public QThread
-{
+class ThreadAttPorte : public QThread{
     Q_OBJECT
     public:
         ThreadAttPorte(int *sP, int s);
@@ -31,7 +30,7 @@ class ThreadAttPorte : public QThread
 
     private :
         int *stateP;
-        int state;
+        int state; //état attendu fermé ou ouvert
     };
 
 #endif // THREADATTPORTE_H

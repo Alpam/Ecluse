@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:
+ *       Filename: threadattniveau.h
  *
- *    Description:
+ *    Description: fichier header de threadattniveau
  *
  *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
  *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
@@ -17,20 +17,20 @@
 #include <QApplication>
 #include <QThread>
 
-class ThreadAttNiveau : public QThread
-{
+class ThreadAttNiveau : public QThread{
     Q_OBJECT
-public:
-    ThreadAttNiveau(int *nE, int c);
-public slots :
-    void run();
+    public:
+        ThreadAttNiveau(int *nE, int c);
 
-signals :
-    void finNiv();
-private :
+    public slots :
+        void run();
 
-    int *niveauEau;
-    int cst;
+    signals :
+        void finNiv();
+
+    private :
+        int *niveauEau;
+        int cst;//niveau d'eau attendu
 };
 
 #endif // THREADATTNIVEAU_H

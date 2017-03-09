@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:
+ *       Filename: threadporte.h
  *
- *    Description:
+ *    Description: fichier header de threadporte
  *
  *         Author:  Paul Robin (), paul.robin@etu.unistra.fr
  *         Author:  Arthur Delrue (), arthur.delrue@etu.unistra.fr
@@ -17,8 +17,7 @@
 #include <QApplication>
 #include <QThread>
 
-class ThreadPorte : public QThread
-{
+class ThreadPorte : public QThread{
     Q_OBJECT
 
     public:
